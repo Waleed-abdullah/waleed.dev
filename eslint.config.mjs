@@ -21,7 +21,7 @@ const eslintConfig = [
       "simple-import-sort/exports": "error",
       "@typescript-eslint/consistent-type-imports": ["error", {
           prefer: "type-imports",
-          fixStyle: "inline",
+          fixStyle: "inline-type-imports",
         },
       ],
     },

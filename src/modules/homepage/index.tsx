@@ -3,11 +3,11 @@ import { WaleedIcon } from "@/core/icons/waleed-icon";
 
 export const Homepage = () => {
   return (
-    <div className="flex size-full items-center justify-center gap-2">
-      <WaleedIcon className="text-white size-12" />
+    <div className="flex flex-col size-full items-center justify-center gap-2">
+      <WaleedIcon className=" size-12" />
       <ScrambledText
         text="Coming Soon"
-        className="text-white w-[200px] text-2xl font-bold"
+        className=" min-h-7 text-2xl font-bold"
       />
     </div>
   );

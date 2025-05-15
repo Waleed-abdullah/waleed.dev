@@ -2,8 +2,8 @@ import "./globals.css";
 
 import type { Metadata } from "next";
 
-import type { PropsWithChildren } from "@/core/types";
-import { RootLayout } from "@/root-layout";
+import type { PropsWithChildren } from "@/core/types/common";
+import { RootLayout } from "@/modules/root-layout";
 
 export const metadata: Metadata = {
   title: "Waleed",

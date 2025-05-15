@@ -2,7 +2,7 @@
 
 import { useScramble, type UseScrambleProps } from "use-scramble";
 
-import type { PropsWithClassName } from "@/core/types";
+import type { PropsWithClassName } from "@/core/types/common";
 
 export const ScrambledText = ({
   className,
