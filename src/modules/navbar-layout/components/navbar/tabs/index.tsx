@@ -39,11 +39,11 @@ export const NavbarTabs = () => {
           isActive={pathname === ABSOLUTE_ROUTES.ROOT}
         >
           <Link
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-sm sm:text-base"
             prefetch
             href={ABSOLUTE_ROUTES.ROOT}
           >
-            <kbd>[H]</kbd>
+            <kbd className="hidden sm:block">[H]</kbd>
             <span className="z-50">Home</span>
           </Link>
         </AnimatedTabsTrigger>
@@ -52,11 +52,11 @@ export const NavbarTabs = () => {
           isActive={pathname === ABSOLUTE_ROUTES.BLOGS}
         >
           <Link
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-sm sm:text-base"
             prefetch
             href={ABSOLUTE_ROUTES.BLOGS}
           >
-            <kbd>[B]</kbd>
+            <kbd className="hidden sm:block">[B]</kbd>
             <span className="z-50">Blogs</span>
           </Link>
         </AnimatedTabsTrigger>
@@ -65,11 +65,11 @@ export const NavbarTabs = () => {
           isActive={pathname === ABSOLUTE_ROUTES.PROJECTS}
         >
           <Link
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 text-sm sm:text-base"
             prefetch
             href={ABSOLUTE_ROUTES.PROJECTS}
           >
-            <kbd>[P]</kbd>
+            <kbd className="hidden sm:block">[P]</kbd>
             <span className="z-50">Projects</span>
           </Link>
         </AnimatedTabsTrigger>
