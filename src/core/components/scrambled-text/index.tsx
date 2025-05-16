@@ -18,6 +18,7 @@ export const ScrambledText = ({
     tick: 1,
     step: 1,
     scramble: 4,
+    overflow: true,
     ...scrambleOptions,
   });
 

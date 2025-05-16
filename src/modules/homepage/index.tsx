@@ -12,7 +12,11 @@ export const Homepage = () => {
       <div className="flex flex-col gap-4">
         <h1 className="text-2xl sm:text-4xl font-bold flex gap-1">
           <span className="text-muted-foreground">*</span>{" "}
-          <ScrambledText speed={1} text="Muhammad Waleed Abdullah" />
+          <ScrambledText
+            shouldReplay={false}
+            speed={1}
+            text="Muhammad Waleed Abdullah"
+          />
         </h1>
         <p className="text-muted-foreground flex items-center gap-1">
           <MapPin className="size-4" /> Islamabad, Pakistan
