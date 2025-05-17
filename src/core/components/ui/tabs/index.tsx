@@ -54,6 +54,7 @@ interface AnimatedTabsTriggerProps
   extends React.ComponentProps<typeof TabsPrimitive.Trigger> {
   isActive?: boolean;
   activeProps?: React.ComponentProps<typeof motion.span>;
+  layoutId: string;
 }
 
 const AnimatedTabsTrigger = ({
@@ -61,6 +62,7 @@ const AnimatedTabsTrigger = ({
   children,
   isActive,
   activeProps,
+  layoutId,
   ...props
 }: AnimatedTabsTriggerProps) => (
   <TabsPrimitive.Trigger
@@ -73,7 +75,7 @@ const AnimatedTabsTrigger = ({
     {children}
     {isActive && (
       <motion.span
-        layoutId="bubble"
+        layoutId={layoutId}
         className="absolute inset-x-0 bg-primary bottom-0 h-0.5 z-10  mix-blend-difference"
         style={{ borderRadius: 9999 }}
         transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}

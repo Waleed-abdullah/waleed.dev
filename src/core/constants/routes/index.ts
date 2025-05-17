@@ -2,20 +2,20 @@ const ROOT = "/";
 
 const BLOGS = "blogs";
 
-const PROJECTS = "projects";
+const RECIPES = "recipes";
 
 const ABOUT = "about";
 
 export const RELATIVE_ROUTES = {
   ROOT,
   BLOGS,
-  PROJECTS,
+  RECIPES,
   ABOUT,
 } as const;
 
 export const ABSOLUTE_ROUTES = {
   ROOT,
   BLOGS: `${ROOT}${BLOGS}`,
-  PROJECTS: `${ROOT}${PROJECTS}`,
+  RECIPES: `${ROOT}${RECIPES}`,
   ABOUT: `${ROOT}${ABOUT}`,
 } as const;

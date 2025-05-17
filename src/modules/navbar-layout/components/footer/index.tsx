@@ -31,21 +31,19 @@ const SOCIAL_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="border-t border-border py-4 px-4">
-      <div className="flex items-center justify-center">
-        <div className="flex items-center gap-6">
-          {SOCIAL_LINKS.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              target="_blank"
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              aria-label={link.name}
-            >
-              {link.icon}
-            </Link>
-          ))}
-        </div>
+    <footer className="fixed flex items-center justify-center h-[var(--footer-height)] bottom-0 inset-x-0 backdrop-blur border-t border-border px-4">
+      <div className="flex items-center gap-6">
+        {SOCIAL_LINKS.map((link) => (
+          <Link
+            key={link.name}
+            href={link.href}
+            target="_blank"
+            className="text-muted-foreground hover:text-foreground transition-colors"
+            aria-label={link.name}
+          >
+            {link.icon}
+          </Link>
+        ))}
       </div>
     </footer>
   );
