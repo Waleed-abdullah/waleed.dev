@@ -1,7 +1,7 @@
-import { ComingSoonPage } from "@/modules/coming-soon-page";
+import { Blogs } from "@/modules/blogs";
 
 const Page = () => {
-  return <ComingSoonPage />;
+  return <Blogs />;
 };
 
 export default Page;
