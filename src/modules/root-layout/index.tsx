@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 
 import { type PropsWithChildren } from "@/core/types/common";
 
+import { Initializers } from "./initializers";
 import { RootLayoutProviders } from "./providers";
 
 const inter = Inter({
@@ -15,7 +16,10 @@ export const RootLayout = ({ children }: PropsWithChildren) => {
       <body
         className={`${inter.variable} ${inter.className} antialiased h-svh flex`}
       >
-        <RootLayoutProviders>{children}</RootLayoutProviders>
+        <RootLayoutProviders>
+          <Initializers />
+          {children}
+        </RootLayoutProviders>
       </body>
     </html>
   );
