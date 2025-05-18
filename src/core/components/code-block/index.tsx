@@ -34,7 +34,7 @@ export const CodeBlock = async ({
           {...props}
           className={cn(
             props.className,
-            'relative min-h-9 rounded-sm p-2 whitespace-pre-wrap'
+            'relative min-h-9 rounded-sm p-2 break-all whitespace-pre-wrap'
           )}
         >
           {props.children}

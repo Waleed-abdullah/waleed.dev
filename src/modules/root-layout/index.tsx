@@ -14,7 +14,7 @@ export const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${inter.className} flex h-svh antialiased`}
+        className={`${inter.variable} ${inter.className} flex h-svh w-svw antialiased`}
       >
         <RootLayoutProviders>
           <Initializers />
