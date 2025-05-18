@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useScramble, type UseScrambleProps } from "use-scramble";
+import { useScramble, type UseScrambleProps } from 'use-scramble';
 
-import type { PropsWithClassName } from "@/core/types/common";
+import type { PropsWithClassName } from '@/core/types/common';
 
 interface ScrambledTextProps extends PropsWithClassName<UseScrambleProps> {
   shouldReplay?: boolean;

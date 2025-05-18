@@ -1,7 +1,7 @@
-import Link from "next/link";
+import Link from 'next/link';
 
 const DATA_INTENSIVE_BOOK_URL =
-  "https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/";
+  'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/';
 
 export const Intro = () => {
   return (
@@ -12,7 +12,7 @@ export const Intro = () => {
       System design and handling Data-intensive applications (Yes, I am reading
       <Link
         href={DATA_INTENSIVE_BOOK_URL}
-        className="link-underline ml-1 text-muted-foreground"
+        className="link-underline text-muted-foreground ml-1"
         target="_blank"
       >
         Designing Data-Intensive Applications

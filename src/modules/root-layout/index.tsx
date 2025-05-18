@@ -1,20 +1,20 @@
-import { Inter } from "next/font/google";
+import { Inter } from 'next/font/google';
 
-import { type PropsWithChildren } from "@/core/types/common";
+import { type PropsWithChildren } from '@/core/types/common';
 
-import { Initializers } from "./initializers";
-import { RootLayoutProviders } from "./providers";
+import { Initializers } from './initializers';
+import { RootLayoutProviders } from './providers';
 
 const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
+  subsets: ['latin'],
+  variable: '--font-inter',
 });
 
 export const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${inter.className} antialiased h-svh flex`}
+        className={`${inter.variable} ${inter.className} flex h-svh antialiased`}
       >
         <RootLayoutProviders>
           <Initializers />

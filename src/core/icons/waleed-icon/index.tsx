@@ -1,4 +1,4 @@
-import type { PropsWithClassName } from "@/core/types/common";
+import type { PropsWithClassName } from '@/core/types/common';
 
 export const WaleedIcon = ({ className }: PropsWithClassName) => {
   return (

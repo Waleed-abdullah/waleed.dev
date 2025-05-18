@@ -1,13 +1,13 @@
-import { getPostFiles } from "@/core/utils/post";
-import { BlogsList } from "@/modules/blogs/blogs-list";
-import { RecipesList } from "@/modules/recipes/recipes-list";
+import { getPostFiles } from '@/core/utils/post';
+import { BlogsList } from '@/modules/blogs/blogs-list';
+import { RecipesList } from '@/modules/recipes/recipes-list';
 
-import { PROJECTS_SECTION_ITEMS, WORK_SECTION_ITEMS } from "./constants";
-import { HomepageSection } from "./section";
+import { PROJECTS_SECTION_ITEMS, WORK_SECTION_ITEMS } from './constants';
+import { HomepageSection } from './section';
 
 export const Sections = async () => {
-  const blogFiles = await getPostFiles("blogs");
-  const recipeFiles = await getPostFiles("recipes");
+  const blogFiles = await getPostFiles('blogs');
+  const recipeFiles = await getPostFiles('recipes');
 
   return (
     <div className="flex flex-col gap-4">

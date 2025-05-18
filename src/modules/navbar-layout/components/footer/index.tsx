@@ -1,34 +1,34 @@
-import { MailIcon, ScrollText } from "lucide-react";
-import Link from "next/link";
+import { MailIcon, ScrollText } from 'lucide-react';
+import Link from 'next/link';
 
-import { EXTERNAL_LINKS } from "@/core/constants/external-links";
-import { GitHubIcon } from "@/core/icons/github-icon";
-import { LinkedInIcon } from "@/core/icons/linkedin-icon";
-import { TwitterXIcon } from "@/core/icons/twitter-x-icon";
+import { EXTERNAL_LINKS } from '@/core/constants/external-links';
+import { GitHubIcon } from '@/core/icons/github-icon';
+import { LinkedInIcon } from '@/core/icons/linkedin-icon';
+import { TwitterXIcon } from '@/core/icons/twitter-x-icon';
 
 const SOCIAL_LINKS = [
   {
-    name: "Email",
+    name: 'Email',
     href: EXTERNAL_LINKS.EMAIL,
     icon: <MailIcon className="size-4" />,
   },
   {
-    name: "GitHub",
+    name: 'GitHub',
     href: EXTERNAL_LINKS.GITHUB,
     icon: <GitHubIcon className="size-4" />,
   },
   {
-    name: "LinkedIn",
+    name: 'LinkedIn',
     href: EXTERNAL_LINKS.LINKEDIN,
     icon: <LinkedInIcon className="size-4" />,
   },
   {
-    name: "X/Twitter",
+    name: 'X/Twitter',
     href: EXTERNAL_LINKS.X,
     icon: <TwitterXIcon className="size-4" />,
   },
   {
-    name: "Resume",
+    name: 'Resume',
     href: EXTERNAL_LINKS.RESUME,
     icon: <ScrollText className="size-4" />,
   },
@@ -36,7 +36,7 @@ const SOCIAL_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="fixed flex items-center justify-center h-[var(--footer-height)] bottom-0 inset-x-0 backdrop-blur border-t border-border px-4">
+    <footer className="border-border fixed inset-x-0 bottom-0 flex h-[var(--footer-height)] items-center justify-center border-t px-4 backdrop-blur">
       <div className="flex items-center gap-6">
         {SOCIAL_LINKS.map((link) => (
           <Link

@@ -1,4 +1,4 @@
-import { GtmScriptInitializer } from "./gtm-script-initializer";
+import { GtmScriptInitializer } from './gtm-script-initializer';
 
 export const Initializers = () => {
   return (

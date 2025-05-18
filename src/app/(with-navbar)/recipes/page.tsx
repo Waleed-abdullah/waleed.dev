@@ -1,4 +1,4 @@
-import { Recipes } from "@/modules/recipes";
+import { Recipes } from '@/modules/recipes';
 
 const Page = () => {
   return <Recipes />;

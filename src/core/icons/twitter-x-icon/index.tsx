@@ -1,4 +1,4 @@
-import { type PropsWithClassName } from "@/core/types/common";
+import { type PropsWithClassName } from '@/core/types/common';
 
 export const TwitterXIcon = ({ className }: PropsWithClassName) => (
   <svg width="16" height="16" fill="currentColor" className={className}>

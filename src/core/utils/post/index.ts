@@ -1,26 +1,26 @@
-import "server-only";
+import 'server-only';
 
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 import {
   PostMetadataSchema,
   type PostMetadataSchemaType,
-} from "@/core/schemas/posts";
+} from '@/core/schemas/posts';
 
-export type PostsType = "blogs" | "recipes";
+export type PostsType = 'blogs' | 'recipes';
 
-const BLOGS_DIR = path.join(process.cwd(), "src", "posts", "blogs");
-const RECIPES_DIR = path.join(process.cwd(), "src", "posts", "recipes");
+const BLOGS_DIR = path.join(process.cwd(), 'src', 'posts', 'blogs');
+const RECIPES_DIR = path.join(process.cwd(), 'src', 'posts', 'recipes');
 
 export const getPostFiles = (type: PostsType) => {
   return fs
-    .readdirSync(type === "blogs" ? BLOGS_DIR : RECIPES_DIR)
-    .filter((file) => file.endsWith(".mdx"));
+    .readdirSync(type === 'blogs' ? BLOGS_DIR : RECIPES_DIR)
+    .filter((file) => file.endsWith('.mdx'));
 };
 
 export const getPostSlug = (fileName: string) => {
-  return fileName.replace(/\.mdx$/, "");
+  return fileName.replace(/\.mdx$/, '');
 };
 
 // This method is here to ensure that I have correctly defined metadata in the mdx files

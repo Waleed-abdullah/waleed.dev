@@ -1,8 +1,8 @@
-const ROOT = "/";
+const ROOT = '/';
 
-const BLOGS = "blogs";
+const BLOGS = 'blogs';
 
-const RECIPES = "recipes";
+const RECIPES = 'recipes';
 
 export const RELATIVE_ROUTES = {
   ROOT,

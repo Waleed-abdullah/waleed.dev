@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useHotkeys } from "react-hotkeys-hook";
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useHotkeys } from 'react-hotkeys-hook';
 
-import { AnimatedTabsTrigger, Tabs, TabsList } from "@/core/components/ui/tabs";
-import { HOT_KEYS } from "@/core/constants/hot-keys";
-import { ABSOLUTE_ROUTES } from "@/core/constants/routes";
+import { AnimatedTabsTrigger, Tabs, TabsList } from '@/core/components/ui/tabs';
+import { HOT_KEYS } from '@/core/constants/hot-keys';
+import { ABSOLUTE_ROUTES } from '@/core/constants/routes';
 
-const TABS_LAYOUT_ID = "navbar-tabs";
+const TABS_LAYOUT_ID = 'navbar-tabs';
 
 export const NavbarTabs = () => {
   const pathname = usePathname();
@@ -64,7 +64,7 @@ export const NavbarTabs = () => {
         <AnimatedTabsTrigger
           layoutId={TABS_LAYOUT_ID}
           value={ABSOLUTE_ROUTES.RECIPES}
-          isActive={pathname === ABSOLUTE_ROUTES.RECIPES}
+          isActive={pathname.startsWith(ABSOLUTE_ROUTES.RECIPES)}
           onClick={() => router.push(ABSOLUTE_ROUTES.RECIPES)}
           className="cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
         >

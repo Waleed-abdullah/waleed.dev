@@ -1,11 +1,11 @@
-import { type MetadataRoute } from "next";
+import { type MetadataRoute } from 'next';
 
-import { ABSOLUTE_ROUTES } from "@/core/constants/routes";
-import { getAllPostSlugsWithMetadata } from "@/core/utils/post";
+import { ABSOLUTE_ROUTES } from '@/core/constants/routes';
+import { getAllPostSlugsWithMetadata } from '@/core/utils/post';
 
 export default async function Sitemap(): Promise<MetadataRoute.Sitemap> {
-  const blogs = await getAllPostSlugsWithMetadata("blogs");
-  const recipes = await getAllPostSlugsWithMetadata("recipes");
+  const blogs = await getAllPostSlugsWithMetadata('blogs');
+  const recipes = await getAllPostSlugsWithMetadata('recipes');
 
   return [
     {

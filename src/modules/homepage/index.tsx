@@ -1,7 +1,7 @@
-import { Header } from "./components/header";
-import { Intro } from "./components/intro";
-import { Location } from "./components/location";
-import { Sections } from "./components/sections";
+import { Header } from './components/header';
+import { Intro } from './components/intro';
+import { Location } from './components/location';
+import { Sections } from './components/sections';
 
 export const Homepage = () => {
   return (

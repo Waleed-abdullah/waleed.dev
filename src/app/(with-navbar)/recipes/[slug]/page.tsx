@@ -1,6 +1,6 @@
-import { type Metadata } from "next";
+import { type Metadata } from 'next';
 
-import { getAllPostSlugsWithMetadata } from "@/core/utils/post";
+import { getAllPostSlugsWithMetadata } from '@/core/utils/post';
 
 export const dynamicParams = false;
 
@@ -15,10 +15,10 @@ export const generateMetadata = async ({
   const { metadata } = await import(`@/posts/recipes/${slug}.mdx`);
   return {
     title: metadata.title,
-    authors: [{ name: "Waleed" }],
+    authors: [{ name: 'Waleed' }],
     description: metadata.summary,
-    keywords: ["Recipes", "waleed", "waleed.dev", ...(metadata.keywords || [])],
-    category: metadata.category ?? "Recipe",
+    keywords: ['Recipes', 'waleed', 'waleed.dev', ...(metadata.keywords || [])],
+    category: metadata.category ?? 'Recipe',
     openGraph: {
       title: metadata.title,
       description: metadata.summary,
@@ -35,7 +35,7 @@ const Page = async ({ params }: PageProps) => {
 };
 
 export const generateStaticParams = async () => {
-  const posts = await getAllPostSlugsWithMetadata("recipes");
+  const posts = await getAllPostSlugsWithMetadata('recipes');
 
   return posts.map((post) => ({
     slug: post.slug,

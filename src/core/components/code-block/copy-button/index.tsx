@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { Copy } from "lucide-react";
-import { Check } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Copy } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
-import { cn } from "@/core/lib/cn";
-import { type PropsWithClassName } from "@/core/types/common";
+import { cn } from '@/core/lib/cn';
+import { type PropsWithClassName } from '@/core/types/common';
 
-import { Button } from "../../ui/button";
+import { Button } from '../../ui/button';
 
 interface CopyButtonProps extends PropsWithClassName {
   content: string;
@@ -30,7 +30,7 @@ export const CopyButton = ({ className, content }: CopyButtonProps) => {
     <Button
       size="icon"
       variant="ghost"
-      className={cn(className, "size-8 absolute top-0.5 right-0.5")}
+      className={cn(className, 'absolute top-0.5 right-0.5 size-8')}
       onClick={copyToClipboard}
     >
       {copied ? <Check className="size-4" /> : <Copy className="size-4" />}

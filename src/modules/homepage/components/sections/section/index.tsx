@@ -1,11 +1,11 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { type HomepageSectionProps } from "./types";
+import { type HomepageSectionProps } from './types';
 
 export const HomepageSection = ({ title, items }: HomepageSectionProps) => {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-lg sm:text-xl font-bold">
+      <h2 className="text-lg font-bold sm:text-xl">
         <span className="text-muted-foreground">*</span> {title}
       </h2>
       <div className="flex flex-col gap-4">
@@ -17,16 +17,16 @@ export const HomepageSection = ({ title, items }: HomepageSectionProps) => {
                 target="_blank"
                 className="link-underline w-fit"
               >
-                <h3 className="text-sm sm:text-lg font-bold">{item.title}</h3>
+                <h3 className="text-sm font-bold sm:text-lg">{item.title}</h3>
               </Link>
               {item.subtitle && (
-                <p className="text-xs sm:text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-xs sm:text-sm">
                   {item.subtitle}
                 </p>
               )}
             </div>
             {item.description && (
-              <p className="text-sm sm:text-base text-secondary-foreground">
+              <p className="text-secondary-foreground text-sm sm:text-base">
                 {item.description}
               </p>
             )}

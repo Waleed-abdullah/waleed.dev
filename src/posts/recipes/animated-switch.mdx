@@ -1,0 +1,145 @@
+import { Subheading } from "@/posts/components/sub-heading";
+import { SwitchShowcase } from "./components/switch-showcase";
+
+export const metadata = {
+    title: "Animated Switch",
+    date: "2025-05-18",
+    summary: "An animated switch component using Radix UI and tailwind",
+    image: '/images/animated-switch.gif',
+    keywords: ['react', 'nextjs', 'tailwindcss', 'tailwindv4', 'shadcn', 'radix', 'ui', 'animation', 'switch']
+}
+
+
+# Animated Switch
+<Subheading text="May 18, 2025" />
+
+This is a cool little animation for a switch component, inspired from old IOS switch animation, made using Shadcn/ui, Radix UI and tailwind.
+
+<SwitchShowcase />
+
+## Code
+
+```tsx
+'use client';
+
+import * as SwitchPrimitives from '@radix-ui/react-switch';
+import * as React from 'react';
+import { useState } from 'react';
+
+import { cn } from '@/core/lib/cn';
+
+const SWITCH_PRESS_ANIMATE_TIMEOUT_DURATION = 150;
+
+const Switch = ({
+  className,
+  onPointerDown,
+  onPointerUp,
+  ...props
+}: React.ComponentProps<typeof SwitchPrimitives.Root>) => {
+  const [isPressed, setIsPressed] = useState(false);
+  const [isReleased, setIsReleased] = useState(false);
+
+  const handlePress = () => {
+    setIsReleased(false);
+    setIsPressed(true);
+  };
+
+  const handleRelease = () => {
+    setIsReleased(true);
+  };
+
+  React.useEffect(() => {
+    if (!isReleased) return;
+
+    const timeout = setTimeout(() => {
+      setIsPressed(false);
+    }, SWITCH_PRESS_ANIMATE_TIMEOUT_DURATION);
+
+    return () => clearTimeout(timeout);
+  }, [isReleased]);
+
+  return (
+    <SwitchPrimitives.Root
+      className={cn(
+        'peer focus-visible:ring-ring focus-visible:ring-offset-background data-[state=checked]:bg-primary data-[state=unchecked]:bg-input inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50',
+        className
+      )}
+      {...props}
+      onPointerDown={(e) => {
+        onPointerDown?.(e);
+        handlePress();
+      }}
+      onPointerUp={(e) => {
+        onPointerUp?.(e);
+        handleRelease();
+      }}
+    >
+      <SwitchPrimitives.Thumb
+        data-pressed={isPressed}
+        className={cn(
+          'bg-background pointer-events-none block size-5 rounded-full shadow-lg ring-0 transition-[translate,width] duration-300 data-[pressed=true]:w-7.5 data-[state=checked]:translate-x-5 data-[state=checked]:data-[pressed=true]:translate-x-2.5 data-[state=unchecked]:translate-x-0'
+        )}
+      />
+    </SwitchPrimitives.Root>
+  );
+};
+Switch.displayName = SwitchPrimitives.Root.displayName;
+
+export { Switch };
+```
+
+## Explanation
+
+> I am using data-pressed attribute to track when the switch is pressed, I find it's much cleaner than using clsx
+
+
+Here's how it works:
+
+1. **State Management**:
+   - We use a `isPressed` state to track when the switch is being pressed and a `isReleased` state to track when the switch is being released
+   - A useEffect is used to fire a timeout to reset the `isPressed` state after the press animation is complete
+   - When pressed, the thumb expands and moves differently based on the switch state
+
+2. **Animation Timing**:
+   - The press animation lasts for `150ms` (defined by `SWITCH_PRESS_ANIMATE_TIMEOUT_DURATION`)
+   - The translate and widrh transitions lasts for `300ms`
+
+3. **TailwindCSS Classes**:
+   - `transition-[translate,width]`: Enables smooth transitions for both position and width
+   - `data-[pressed=true]:w-7.5`: Expands the thumb width when pressed
+   - `data-[state=checked]:translate-x-5`: Moves the thumb right when checked
+   - `data-[state=checked]:data-[pressed=true]:translate-x-2.5`: Position when checked and pressed is true, to avoid overflowing the thumb
+   - `data-[state=unchecked]:translate-x-0`: Returns to start position when unchecked
+
+4. **Animation Flow**:
+   - When pressed (`onPointerDown`):
+     - The thumb expands to `w-7.5` (30px) 1.5x of the original width
+     - If checked, it moves to `translate-x-2.5` (10px), this
+     - If unchecked, it stays at `translate-x-0`
+   - When released (`onPointerUp`):
+     - After 150ms, the thumb returns to normal width
+     - If checked, it moves to `translate-x-5` (20px)
+     - If unchecked, it returns to `translate-x-0`
+
+
+You can use `cva` to create your own variants.
+
+## Edge case
+While writing this post I realized, I was doing something wrong, this is what the previous code looked like:
+
+```tsx
+const handlePress = () => {
+    setIsPressed(true);
+  };
+
+  const handleRelease = () => {
+    setTimeout(() => {
+      setIsPressed(false);
+    }, SWITCH_PRESS_ANIMATE_TIMEOUT_DURATION);
+  };
+
+  return (
+    <SwitchPrimitives.Root
+```
+
+I was using setTimeout in a callback, so if the switch is pressed multiple times, the previous timeouts start firing and caused the switch animation to break, afterwards I switched to using a useEffect to fire the setTimeout and clean previous time outs everytime the `isReleased` state updates.
