@@ -54,8 +54,8 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
       />
     ),
     p: (props) => <p {...props} className="my-2 text-sm md:text-base" />,
-    ul: (props) => <ul {...props} className="my-1 ml-6 list-disc" />,
-    ol: (props) => <ol {...props} className="my-1 ml-6 list-decimal" />,
+    ul: (props) => <ul {...props} className="my-1 ml-4 list-disc" />,
+    ol: (props) => <ol {...props} className="my-1 ml-4 list-decimal" />,
     li: (props) => <li {...props} className="my-1 text-sm md:text-base" />,
     blockquote: (props) => (
       <blockquote
