@@ -12,13 +12,13 @@ export const generateMetadata = async ({
   params,
 }: PageProps): Promise<Metadata> => {
   const { slug } = await params;
-  const { metadata } = await import(`@/posts/blogs/${slug}.mdx`);
+  const { metadata } = await import(`@/posts/recipes/${slug}.mdx`);
   return {
     title: metadata.title,
     authors: [{ name: "Waleed" }],
     description: metadata.summary,
-    keywords: ["blog", "waleed", "waleed.dev", ...(metadata.keywords || [])],
-    category: metadata.category ?? "Blog",
+    keywords: ["Recipes", "waleed", "waleed.dev", ...(metadata.keywords || [])],
+    category: metadata.category ?? "Recipe",
     openGraph: {
       title: metadata.title,
       description: metadata.summary,
@@ -29,13 +29,13 @@ export const generateMetadata = async ({
 const Page = async ({ params }: PageProps) => {
   const { slug } = await params;
 
-  const { default: Post } = await import(`@/posts/blogs/${slug}.mdx`);
+  const { default: Post } = await import(`@/posts/recipes/${slug}.mdx`);
 
   return <Post />;
 };
 
 export const generateStaticParams = async () => {
-  const posts = await getAllPostSlugsWithMetadata("blogs");
+  const posts = await getAllPostSlugsWithMetadata("recipes");
 
   return posts.map((post) => ({
     slug: post.slug,

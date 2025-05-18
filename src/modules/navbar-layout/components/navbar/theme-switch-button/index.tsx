@@ -2,8 +2,10 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useHotkeys } from "react-hotkeys-hook";
 
 import { Button } from "@/core/components/ui/button";
+import { HOT_KEYS } from "@/core/constants/hot-keys";
 import { cn } from "@/core/lib/cn";
 
 const BASE_ANIMATION_CLASSES =
@@ -17,14 +19,14 @@ export const ThemeSwitchButton = () => {
   const isSystemTheme = theme === "system";
   const isDarkMode = isSystemTheme ? systemTheme === "dark" : theme === "dark";
 
+  const toggleTheme = () => {
+    setTheme(isDarkMode ? "light" : "dark");
+  };
+
+  useHotkeys(HOT_KEYS.TOGGLE_THEME, toggleTheme);
+
   return (
-    <Button
-      size="icon"
-      variant="ghost"
-      onClick={() => {
-        setTheme(isDarkMode ? "light" : "dark");
-      }}
-    >
+    <Button size="icon" variant="ghost" onClick={toggleTheme}>
       <Sun
         className={cn(
           "size-4 transition-all absolute duration-200",

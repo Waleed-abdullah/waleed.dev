@@ -1,0 +1,125 @@
+import { ScrambledText } from "@/core/components/scrambled-text";
+import { CodeBlock } from "@/core/components/code-block"
+
+
+export const metadata = {
+    title: "Test Blog Post",
+    date: "2025-05-17",
+    summary: "This is a test blog post",
+};
+
+# Markdown Syntax Testing
+
+
+## Headings
+# Heading 1
+## Heading 2
+### Heading 3
+#### Heading 4
+##### Heading 5
+###### Heading 6
+
+## Text Formatting
+*Italic text* or _Italic text_
+
+**Bold text** or __Bold text__
+
+***Bold and italic*** or ___Bold and italic___
+
+<s>Strikethrough text</s>
+
+## Lists
+### Unordered List
+- Item 1
+- Item 2
+  - Nested item 2.1
+  - Nested item 2.2
+- Item 3
+
+### Ordered List
+1. First item
+2. Second item
+   1. Nested item 2.1
+   2. Nested item 2.2
+3. Third item
+
+## Links and Images
+[Link text](https://www.example.com)
+![Image alt text](/images/cat.jpg)
+
+## Code
+Inline code:  `const hello = "world"`
+
+Code block:
+
+
+```javascript
+function hello() {
+  console.log("Hello, world!");
+}
+```
+
+## Blockquotes
+> This is a blockquote
+> 
+> > This is a nested blockquote
+
+## Horizontal Rule
+---
+
+## Tables
+| Header 1 | Header 2 | Header 3 |
+|----------|----------|----------|
+| Cell 1   | Cell 2   | Cell 3   |
+| Cell 4   | Cell 5   | Cell 6   |
+
+## Task Lists
+- [x] Completed task
+- [x] Pending task
+- [ ] Another pending task
+
+## Footnotes
+Here's a sentence with a footnote. [^1]
+
+[^1]: This is the footnote.
+
+## Escaping Characters
+\* Asterisk
+\` Backtick
+\# Hash symbol
+
+## HTML Elements
+<div style={{ color: "blue" }}>This is blue text</div>
+
+<div>
+<details>
+<summary>Click to expand</summary>
+<p>Hello how are you</p>
+</details>
+</div>
+
+## Custom Components
+<ScrambledText text="Hello world" />
+
+
+# Spaces
+<p id='date' className='text-xs text-muted-foreground'>2025-05-17</p>
+
+
+This is a test blog post.
+<ScrambledText text="Hello world" />
+
+
+```ts 
+cosole.log("Hello world");
+```
+
+```text
+Well this is something new
+Here
+```
+
+
+Lore ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lore ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lore ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lore ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lore ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lore ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.Lore ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+
+

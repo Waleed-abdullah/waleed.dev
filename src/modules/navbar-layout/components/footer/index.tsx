@@ -1,4 +1,4 @@
-import { MailIcon } from "lucide-react";
+import { MailIcon, ScrollText } from "lucide-react";
 import Link from "next/link";
 
 import { EXTERNAL_LINKS } from "@/core/constants/external-links";
@@ -23,9 +23,14 @@ const SOCIAL_LINKS = [
     icon: <LinkedInIcon className="size-4" />,
   },
   {
-    name: "X",
+    name: "X/Twitter",
     href: EXTERNAL_LINKS.X,
     icon: <TwitterXIcon className="size-4" />,
+  },
+  {
+    name: "Resume",
+    href: EXTERNAL_LINKS.RESUME,
+    icon: <ScrollText className="size-4" />,
   },
 ];
 
@@ -35,6 +40,7 @@ export const Footer = () => {
       <div className="flex items-center gap-6">
         {SOCIAL_LINKS.map((link) => (
           <Link
+            title={link.name}
             key={link.name}
             href={link.href}
             target="_blank"

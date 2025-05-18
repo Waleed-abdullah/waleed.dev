@@ -1,17 +1,18 @@
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 import { ABSOLUTE_ROUTES } from "@/core/constants/routes";
 import { getAllPostSlugsWithMetadata } from "@/core/utils/post";
 
-export const BlogsList = async () => {
+export const RecipesList = async () => {
   try {
-    const posts = await getAllPostSlugsWithMetadata("blogs");
+    const posts = await getAllPostSlugsWithMetadata("recipes");
 
     if (posts.length === 0) {
       return (
         <div className="w-full text-center">
-          <p>Well guess I haven&apos;t written anything yet</p>
+          <p>Well guess I haven&apos;t made anything yet</p>
         </div>
       );
     }
@@ -21,11 +22,19 @@ export const BlogsList = async () => {
         {posts.map((post) => (
           <Link
             key={post.metadata.title}
-            href={`${ABSOLUTE_ROUTES.BLOGS}/${post.slug}`}
+            href={`${ABSOLUTE_ROUTES.RECIPES}/${post.slug}`}
             prefetch
             className="group"
           >
             <div className="flex flex-col gap-2">
+              {post.metadata.image && (
+                <Image
+                  src={post.metadata.image}
+                  alt="no image"
+                  width={100}
+                  height={100}
+                />
+              )}
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
                   <h2 className="text-lg link-underline group-hover:after:w-full font-medium">
