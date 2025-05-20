@@ -34,6 +34,7 @@ export const CopyButton = ({ className, content }: CopyButtonProps) => {
       onClick={copyToClipboard}
     >
       {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+      <span className="sr-only">Copy</span>
     </Button>
   );
 };

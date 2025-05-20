@@ -39,6 +39,7 @@ export const ThemeSwitchButton = () => {
           BASE_ANIMATION_CLASSES_INVERTED
         )}
       />
+      <span className="sr-only">Toggle theme</span>
     </Button>
   );
 };
