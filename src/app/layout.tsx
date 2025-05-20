@@ -13,10 +13,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'Waleed',
-  description:
-    'Full Stack Developer specializing in modern web technologies. Building scalable applications with React, Node.js, and cloud technologies.',
+  description: 'Full Stack Developer who loves Computer Science',
   keywords: [
     'Full Stack Developer',
+    'Software Engineer',
     'Web Development',
     'React',
     'Node.js',
@@ -25,29 +25,27 @@ export const metadata: Metadata = {
     'Shadcn UI',
     'JavaScript',
     'TypeScript',
+    'Computer Science',
+    'Python',
     'Golang',
     'Next.js',
     'RAG',
     'AI',
     'LLM',
     'AI Agent',
-    'AI Agentic',
-    'AI Agentic Development',
     'AI Agentic Development',
     'Portfolio',
   ],
   authors: [{ name: 'Waleed' }],
   openGraph: {
     title: 'Waleed | Full Stack Developer',
-    description:
-      'Full Stack Developer specializing in modern web technologies. Building scalable applications with React, Node.js, and cloud technologies.',
+    description: 'Full Stack Developer who loves Computer Science.',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Waleed | Full Stack Developer',
-    description:
-      'Full Stack Developer specializing in modern web technologies. Building scalable applications with React, Node.js, and cloud technologies.',
+    description: 'Full Stack Developer who loves Computer Science.',
   },
   robots: {
     index: true,
