@@ -17,7 +17,7 @@ export const Blogs = () => {
           <Link className="underline" href={FEYNMAN_INFO_LINK} target="_blank">
             Feynman technique
           </Link>
-          ) maybe sometime I will write blogs on random stuff
+          ) maybe sometimes I will write blogs on random stuff
         </p>
       </div>
       <BlogsList />
