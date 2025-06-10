@@ -8,7 +8,7 @@ export const Recipes = () => {
           <span className="text-muted-foreground">*</span> <p>Recipes</p>
         </h1>
         <p className="text-muted-foreground">
-          Here I share recipes for stuff cool that I have made
+          Here I share recipes for cool stuff that I have made
         </p>
       </div>
       <RecipesList />
