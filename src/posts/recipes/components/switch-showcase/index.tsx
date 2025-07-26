@@ -4,7 +4,7 @@ import { ComponentShowcase } from '../common/component-showcase';
 
 export const SwitchShowcase = () => {
   return (
-    <ComponentShowcase>
+    <ComponentShowcase className="max-w-[400px]">
       <Switch />
     </ComponentShowcase>
   );
