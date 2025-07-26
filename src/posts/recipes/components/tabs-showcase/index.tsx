@@ -11,7 +11,7 @@ import {
 import { cn } from '@/core/lib/cn';
 
 import { ComponentShowcase } from '../common/component-showcase';
-import { DEFAULT_TAB, TABS } from './constants';
+import { DEFAULT_TAB, SPEEDS, TABS } from './constants';
 
 interface AnimatedTabsTriggerProps
   extends React.ComponentProps<typeof TabsPrimitive.Trigger> {
@@ -57,16 +57,10 @@ const AnimatedTabsTrigger = ({
   </TabsPrimitive.Trigger>
 );
 
-const SPEEDS = {
-  SLOW: 0.1,
-  MEDIUM: 0.5,
-  FAST: 1,
-} as const;
-
 export const AnimatedTabsShowcase = () => {
   const [currentTab, setCurrent] =
     useState<(typeof TABS)[keyof typeof TABS]>(DEFAULT_TAB);
-  const [currentSpeed, setCurrentSpeed] = useState('1');
+  const [currentSpeed, setCurrentSpeed] = useState(SPEEDS.SLOW.toString());
   return (
     <ComponentShowcase className="min-h-[300px]">
       <div className="absolute top-2 right-2 flex gap-0.5">
