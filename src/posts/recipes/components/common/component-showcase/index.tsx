@@ -1,8 +1,20 @@
-import { type PropsWithChildren } from '@/core/types/common';
+import { cn } from '@/core/lib/cn';
+import {
+  type PropsWithChildren,
+  type PropsWithClassName,
+} from '@/core/types/common';
 
-export const ComponentShowcase = ({ children }: PropsWithChildren) => {
+export const ComponentShowcase = ({
+  className,
+  children,
+}: PropsWithChildren<PropsWithClassName>) => {
   return (
-    <div className="bg-background border-border mx-auto my-4 flex size-full h-full max-h-[300px] max-w-[400px] items-center justify-center rounded-lg border p-6 shadow-lg dark:shadow-white/5">
+    <div
+      className={cn(
+        'bg-background border-border relative mx-auto my-4 flex size-full h-full max-h-[300px] items-center justify-center rounded-lg border p-6 shadow-lg dark:shadow-white/5',
+        className
+      )}
+    >
       {children}
     </div>
   );

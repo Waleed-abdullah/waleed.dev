@@ -1,0 +1,71 @@
+import { Subheading } from "@/posts/components/sub-heading";
+import { AnimatedTabsShowcase }  from "@/posts/recipes/components/tabs-showcase";
+
+
+export const metadata = {
+    title: "Animated Tabs",
+    date: "2025-07-26",
+    summary: "An animated tab component using shadcn, motion and tailwindcss.", 
+    image: '/images/animated-tabs.gif',
+    keywords: ['react', 'nextjs', 'tailwindcss', 'tailwindv4', 'shadcn', 'radix', 'ui', 'animation', 'tabs', 'framer-motion', 'motion', 'animation']
+}
+
+
+
+# Animated Tabs 
+<Subheading text="July 18, 2025" />
+
+Here is a simple tabs animation using motion and shadcn tabs, it includes mix-blend-exclusion which causes the text color to invert only where the indicator and text overlap. 
+
+<AnimatedTabsShowcase />
+
+
+
+
+```tsx
+import * as TabsPrimitive from '@radix-ui/react-tabs';
+import { motion } from 'motion/react';
+
+import { cn } from '@/core/lib/cn';
+
+interface AnimatedTabsTriggerProps
+  extends React.ComponentProps<typeof TabsPrimitive.Trigger> {
+  isActive?: boolean;
+  activeProps?: React.ComponentProps<typeof motion.span>;
+  layoutId: string;
+  durationMultiplier?: number;
+}
+
+const AnimatedTabsTrigger = ({
+  className,
+  children,
+  isActive,
+  activeProps,
+  layoutId,
+  durationMultiplier = 1,
+  ...props
+}: AnimatedTabsTriggerProps) => (
+  <TabsPrimitive.Trigger
+    className={cn(
+      'group ring-offset-background text-primary focus-visible:ring-ring relative inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50',
+      className
+    )}
+    {...props}
+  >
+    {children}
+    {isActive && (
+      <motion.span
+        layoutId={layoutId}
+        className={cn("bg-secondary dark:bg-secondary-foreground absolute inset-0 bottom-0 z-10 mix-blend-difference", activeProps?.className)}
+        style={{ borderRadius: 9999 }}
+        transition={{
+          type: 'spring',
+          bounce: 0.2,
+          duration: 0.8 / durationMultiplier,
+        }}
+        {...activeProps}
+      />
+    )}
+  </TabsPrimitive.Trigger>
+);
+```
