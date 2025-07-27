@@ -60,7 +60,7 @@ const AnimatedTabsTrigger = ({
 export const AnimatedTabsShowcase = () => {
   const [currentTab, setCurrent] =
     useState<(typeof TABS)[keyof typeof TABS]>(DEFAULT_TAB);
-  const [currentSpeed, setCurrentSpeed] = useState(SPEEDS.SLOW.toString());
+  const [currentSpeed, setCurrentSpeed] = useState(SPEEDS.FAST.toString());
   return (
     <ComponentShowcase className="min-h-[300px]">
       <div className="absolute top-2 right-2 flex gap-0.5">
