@@ -78,7 +78,13 @@ const AnimatedTabsTrigger = ({
         layoutId={layoutId}
         className="bg-primary absolute inset-x-0 bottom-0 z-10 h-0.5 mix-blend-difference"
         style={{ borderRadius: 9999 }}
+        transformTemplate={(_, generatedTransform) => {
+          const [, xValue] =
+            generatedTransform.match(/translate3d\(([^,]+),/) ?? [];
+          return xValue ? `translateX(${xValue})` : generatedTransform;
+        }}
         transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
+        dragConstraints={{ top: 0, bottom: 0 }}
         {...activeProps}
       />
     )}
