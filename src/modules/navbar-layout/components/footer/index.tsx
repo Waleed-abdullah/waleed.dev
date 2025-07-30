@@ -1,6 +1,7 @@
 import { MailIcon, ScrollText } from 'lucide-react';
 import Link from 'next/link';
 
+import { Clock } from '@/core/components/clock';
 import { EXTERNAL_LINKS } from '@/core/constants/external-links';
 import { GitHubIcon } from '@/core/icons/github-icon';
 import { LinkedInIcon } from '@/core/icons/linkedin-icon';
@@ -36,7 +37,9 @@ const SOCIAL_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="border-border fixed inset-x-0 bottom-0 flex h-[var(--footer-height)] items-center justify-center border-t px-4 backdrop-blur">
+    <footer className="border-border fixed inset-x-0 bottom-0 flex h-[var(--footer-height)] items-center justify-between border-t px-4 backdrop-blur">
+      <div />
+
       <div className="flex items-center gap-6">
         {SOCIAL_LINKS.map((link) => (
           <Link
@@ -51,6 +54,8 @@ export const Footer = () => {
           </Link>
         ))}
       </div>
+
+      <Clock size={24} />
     </footer>
   );
 };
