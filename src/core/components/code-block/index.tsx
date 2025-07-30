@@ -13,14 +13,14 @@ interface CodeBlockProps {
   theme?: BundledTheme;
 }
 
-export const CodeBlock = async ({
-  children,
-  language,
-  theme,
-}: CodeBlockProps) => {
+export const CodeBlock = async ({ children, language }: CodeBlockProps) => {
   const hast = await codeToHast(children, {
-    theme: theme ?? 'houston',
     lang: language ?? '',
+    themes: {
+      light: 'one-light',
+      dark: 'slack-dark',
+    },
+
     mergeWhitespaces: true,
   });
 
