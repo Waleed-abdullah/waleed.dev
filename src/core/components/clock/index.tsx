@@ -8,7 +8,7 @@ interface ClockProps {
 }
 
 export const Clock = ({ size }: ClockProps) => {
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState(() => new Date());
 
   useEffect(() => {
     const timer = setInterval(() => {
