@@ -1,7 +1,11 @@
 import { toJsxRuntime } from 'hast-util-to-jsx-runtime';
 import { Fragment } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
-import { type BundledLanguage, type BundledTheme, codeToHast } from 'shiki';
+import {
+  type BundledLanguage,
+  type BundledTheme,
+  codeToHast,
+} from 'shiki/bundle-full.mjs';
 
 import { cn } from '@/core/lib/cn';
 

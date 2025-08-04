@@ -1,0 +1,218 @@
+import { Subheading } from "@/posts/components/sub-heading";
+
+
+export const metadata = {
+  title: "Log structured vs Page oriented storage",
+  date: "2025-08-04",
+  summary: "Log structured vs page oriented storage",
+  keywords: ['log structured', 'LevelDB', 'RocksDB', 'Cassandra', 'Postgres', 'page oriented storage', 'log structured vs page oriented storage', 'log structured vs page oriented storage', 'log structured vs page oriented storage']
+}
+
+
+# Log structured vs Page oriented storage
+<Subheading text="August 04, 2025" /> 
+
+Recently I have learned a lot about how data is actually stored within databases, it all boils down to two fundamental concepts,
+
+
+- Log structured storage engines (LSM trees)
+- Page oriented storage engines (B+ trees)
+
+
+Let's start from the most basic kind of data store that we all know and love hash maps aka key-value pairs.
+
+```bash
+echo "key=value" > file.txt
+
+# get a value from the file
+value=$(cat file.txt | grep "key=" | cut -d "=" -f 2)
+```
+
+This is the simplest form of a storage engine, inserts are O(1) you keep appending to the EOF. lookups are O(n) you have to scan the entire file, for the latest value of a key.
+The problem with this approach is that it is not scalable, you cannot distribute the contents across multiple machines, you cannot perform range quries for example all keys between k1 and k5.
+
+## Log structured storage engines (LSM trees)
+
+### Append-Only Writes
+Log-structured storage engines all follow the same principle:
+
+> Data is never updated in place. Instead, all writes are appended sequentially to disk. This makes writes fast and crash-safe because sequential I/O is much more efficient than random writes.
+
+### SSTables (Sorted String Tables)
+The core building block on disk is the SSTable, an SSTable is a sorted sequence of key–value pairs.
+
+- Immutable once written
+- Typically fixed in size — when one fills up, a new SSTable is created
+- Over time, many SSTables accumulate on disk.
+
+### Compaction
+Since multiple SSTables may contain different versions of the same key (or deleted keys), they need periodic cleanup. This cleanup process is called compaction, which:
+
+- Merges multiple SSTables into a new one
+- Removes overwritten or deleted entries
+- Reduces read amplification by producing fewer, larger SSTables
+
+### LSM Trees (Log-Structured Merge Trees)
+A common type of log-structured storage engine is the LSM Tree.
+
+### MemTable (in memory):
+A sorted, in-memory buffer (often a red-black tree or skip list) which holds recent writes. Once it reaches a size threshold, it is flushed to disk as a new SSTable. Since the MemTable is a tree, it maintains keys in sorted order, making the flush → SSTable process efficient.
+
+### Performance Characteristics
+
+#### **Writes**:
+LSM trees excel at write-heavy workloads. New data is written to the MemTable and WAL first, making writes fast and sequential.
+
+#### Reads:
+Reads are more complex, The read path looks like this:
+
+- Check the MemTable.
+- If not found, check recent SSTables.
+- Fall back to older SSTables if needed.
+
+This can be slow because multiple SSTables may need to be searched.
+
+### Optimizations:
+To improve reads, LSM engines use Bloom filters to skip SSTables that don’t contain the key. Bloom filters are basically an extra attribute that is stored in a SSTable which tells us which key ranges are prsent in this SSTable.
+
+### Summary
+Log-structured storage engines trade read complexity for write efficiency. They are great for workloads where write throughput and crash safety are more important than ultra-fast reads, such as time-series databases, analytics pipelines, and distributed NoSQL systems.
+
+### Examples
+RocksDB, Cassandra, Scylla, HBase
+
+
+
+## Page oriented storage engines (B+ trees)
+
+
+### Basics
+
+Traditional databases (like PostgreSQL, MySQL InnoDB, Oracle, and SQL Server) use page-oriented storage.
+
+- Data on disk is divided into fixed-size pages (commonly 4KB, 8KB, or 16KB).
+- Each page is the basic unit of I/O — reads and writes always happen at page granularity.
+- A page may contain:
+  - A set of rows (table data)
+  - Index entries (pointers to rows)
+  - Metadata (free space, checksums, etc.)
+
+
+### How Updates Work
+
+In page-oriented storage:
+
+1. Find the page containing the record.
+2. Update the row `in place` inside that page.
+3. Mark the page as `dirty` in memory.
+4. Later, flush the dirty page back to disk.
+
+This makes `point lookups and updates efficient`, but it also introduces:
+
+- Random I/O when the page is not cached.
+- Fragmentation as rows are inserted and deleted.
+
+To ensure durability, most engines also use a `Write-Ahead Log (WAL)`: changes are written to the WAL before updating the page, so the database can recover after a crash.
+
+
+### B+ Trees
+
+At the heart of page-oriented storage is the `B+ Tree`, the most common index structure in relational databases.
+
+### Structure
+
+* A `root node`, `internal nodes`, and `leaf nodes`.
+* Each node fits exactly into one `page`.
+* Keys are stored in `sorted order`.
+* `Internal nodes` store keys + child pointers (guide lookups).
+* `Leaf nodes` store the actual rows values.
+* Leaves are linked, making range scans efficient.
+
+Example:
+
+```text
+         [17 | 35]
+        /     |     \
+ [5|9|12] [20|22|30] [40|50|70]
+```
+
+Here is what a trivial implementation of a B+ tree node looks like.
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+class BPlusTreeNode<K extends Comparable<K>, V> {
+    boolean isLeaf;
+    List<K> keys;
+    
+    // For internal nodes: pointers to child nodes
+    List<BPlusTreeNode<K, V>> children;
+
+    // For leaf nodes: pointers to values
+    List<V> values;
+
+    BPlusTreeNode<K, V> next;
+
+    // Order of the B+ tree (max children per node)
+    int order;
+
+    public BPlusTreeNode(int order, boolean isLeaf) {
+        this.order = order;
+        this.isLeaf = isLeaf;
+        this.keys = new ArrayList<>();
+        
+        if (isLeaf) {
+            this.values = new ArrayList<>();
+            this.children = null;
+        } else {
+            this.children = new ArrayList<>();
+            this.values = null;
+        }
+    }
+
+    public boolean isFull() {
+        return keys.size() >= order - 1;
+    }
+}
+```
+
+### Operations
+
+* Lookup: Traverse from root → internal nodes → leaf. Fast, typically O(log n) page reads.
+* Insert: Find the correct leaf, insert key. If full, split the page and adjust parent.
+* Delete: Remove key. If page underflows, merge or rebalance.
+
+This keeps the tree balanced, ensuring efficient lookups even as data grows.
+
+### Clustered vs Non-Clustered Indexes
+
+* Clustered index (primary key): The B+ Tree’s leaves store the full row data. This means the table itself *is* a B+ Tree.
+* Non-clustered index (secondary): The leaves store pointers (primary keys or row IDs) that reference the actual row.
+
+### Performance Characteristics
+
+* Reads:
+
+  - Excellent for point lookups and range queries.
+  - Few page reads required thanks to the tree structure.
+
+* Writes:
+  - Updates are done in-place, which can cause random I/O.
+  - Page splits and merges add overhead.
+  - Hot pages can become contention points under concurrency.
+
+* Optimizations:
+  - Buffer pool caching keeps hot pages in memory.
+  - Vacuuming/defragmentation reclaims fragmented space.
+
+### Summary
+
+Page-oriented storage with B+ Trees is the foundation of relational databases. It is great for read-heavy workloads and transactional systems where point lookups and range queries dominate. 
+
+### Examples
+PostgreSQL, MySQL InnoDB, Oracle, SQL Server
+
+
+
+
+
