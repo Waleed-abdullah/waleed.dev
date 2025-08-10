@@ -16,9 +16,16 @@ export const BlogsList = async () => {
       );
     }
 
+    const sortedPosts = posts.sort((a, b) => {
+      return (
+        new Date(b.metadata.date).getTime() -
+        new Date(a.metadata.date).getTime()
+      );
+    });
+
     return (
       <div className="flex flex-col gap-4">
-        {posts.map((post) => (
+        {sortedPosts.map((post) => (
           <Link
             key={post.metadata.title}
             href={`${ABSOLUTE_ROUTES.BLOGS}/${post.slug}`}

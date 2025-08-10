@@ -1,0 +1,111 @@
+
+import { Subheading } from "@/posts/components/sub-heading";
+
+
+export const metadata = {
+    title: "Ref callbacks and cleanups (React)",
+    date: "2025-08-10",
+    summary: "React 19 ref callback cleanups simplify DOM handling and replace many useEffect patterns.",
+    keywords: ['react', 'ref', 'ref callbacks', 'cleanup', 'side effects', 'react cleanup', 'react ref callbacks', 'react ref callbacks cleanup']
+}
+
+
+# Ref callbacks and cleanups (React)
+<Subheading text="August 10, 2025" /> 
+
+
+Well well well, we got cleanups in ref callbacks in React 19, and they are so
+useful. This also changes something with strict mode, which is that Ref
+callbacks now run twice in development mode before the first real setup, just a
+stress test to ensure the cleanup logic properly undoes what you did in the
+setup logic just like useEffect.
+
+
+
+### What we had to do previously
+```tsx
+const scrollRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+    const scrollElement = scrollRef.current;
+    if (scrollElement) {
+        scrollElement.addEventListener('scroll', handleScroll);
+    }
+    return () => {
+        if (scrollElement) {
+            scrollElement.removeEventListener('scroll', handleScroll);
+        }
+    }
+}, []);
+
+
+return (
+    <div ref={scrollRef}>
+        {children}
+    </div>
+)
+```
+
+
+### What we can do now
+```tsx
+
+return (
+    <div id="scroll-container" ref={(node) => {
+        if (node) {
+            node.addEventListener('scroll', handleScroll);
+            return () => {
+                node.removeEventListener('scroll', handleScroll);
+            }
+        }
+    }}>
+        {children}
+    </div>
+)
+
+```
+
+
+This improves the DX a bit by removing the need to create a refObject then
+passing it to the node and using that refObject in the useEffect.
+
+
+Furthermore, it also makes it easier to do something with nodes when you are
+mapping over a list of nodes.
+
+
+```tsx
+const scrollRefsMap = useRef<Record<string, HTMLDivElement>>({});
+
+return (
+    <div>
+        {items.map((item, index) => (
+            <div key={index} ref={(node) => {
+                if (node) {
+                    scrollRefsMap.current[item.id] = node;
+                }
+
+                return () => {
+                    if (scrollRefsMap.current[item.id]) {
+                        delete scrollRefsMap.current[item.id];
+                    }
+                }
+            }}>
+                {item}
+            </div>
+        ))}
+    </div>
+)
+```
+
+The above appropriately removes the node from the map when the component unmounts.
+
+
+
+> One last thing to note is that ref callbacks run everytime a component rerenders
+
+
+
+
+  
+
