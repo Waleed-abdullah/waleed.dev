@@ -3,6 +3,8 @@ import Link from 'next/link';
 const DATA_INTENSIVE_BOOK_URL =
   'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/';
 
+const STRANGTH_TRACK_URL = 'https://strength-track.com';
+
 export const Intro = () => {
   return (
     <p className="text-secondary-foreground text-sm sm:text-base">
@@ -17,7 +19,15 @@ export const Intro = () => {
       >
         Designing Data-Intensive Applications
       </Link>
-      ). Other than that, I love going to the gym.
+      ). Other than that, I love going to the gym. Also building{' '}
+      <Link
+        href={STRANGTH_TRACK_URL}
+        className="link-underline text-muted-foreground ml-1"
+        target="_blank"
+      >
+        Strangth track
+      </Link>{' '}
+      on the side.
     </p>
   );
 };
