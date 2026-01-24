@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <body
         className={`${inter.variable} ${inter.className} flex h-svh w-svw antialiased`}
       >
