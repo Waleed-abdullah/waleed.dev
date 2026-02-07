@@ -2,6 +2,11 @@ import { MailIcon, ScrollText } from 'lucide-react';
 import Link from 'next/link';
 
 import { Clock } from '@/core/components/clock';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/core/components/ui/tooltip';
 import { EXTERNAL_LINKS } from '@/core/constants/external-links';
 import { GitHubIcon } from '@/core/icons/github-icon';
 import { LinkedInIcon } from '@/core/icons/linkedin-icon';
@@ -42,16 +47,19 @@ export const Footer = () => {
 
       <div className="flex items-center gap-6">
         {SOCIAL_LINKS.map((link) => (
-          <Link
-            title={link.name}
-            key={link.name}
-            href={link.href}
-            target="_blank"
-            className="text-muted-foreground hover:text-foreground transition-colors"
-            aria-label={link.name}
-          >
-            {link.icon}
-          </Link>
+          <Tooltip key={link.name}>
+            <TooltipTrigger asChild>
+              <Link
+                href={link.href}
+                target="_blank"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label={link.name}
+              >
+                {link.icon}
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent side="top">{link.name}</TooltipContent>
+          </Tooltip>
         ))}
       </div>
 
