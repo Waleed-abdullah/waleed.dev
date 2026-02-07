@@ -5,10 +5,12 @@ import { Sections } from './components/sections';
 
 export const Homepage = () => {
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-12">
       <div className="flex flex-col gap-4">
-        <Header />
-        <Location />
+        <div className="flex flex-col gap-2">
+          <Header />
+          <Location />
+        </div>
         <Intro />
       </div>
       <Sections />

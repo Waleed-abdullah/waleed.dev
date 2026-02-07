@@ -37,7 +37,7 @@ const SOCIAL_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="border-border fixed inset-x-0 bottom-0 flex h-[var(--footer-height)] items-center justify-between border-t px-4 backdrop-blur">
+    <footer className="border-border fixed inset-x-0 bottom-0 flex h-[var(--footer-height)] items-center justify-between border-t px-6 backdrop-blur">
       <div />
 
       <div className="flex items-center gap-6">

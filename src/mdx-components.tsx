@@ -20,43 +20,47 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
     h1: (props) => (
       <h1
         {...props}
-        className="mt-6 mb-2 text-2xl font-bold tracking-tight md:text-4xl"
+        className="mt-8 mb-3 text-2xl font-bold tracking-tight md:text-4xl"
       />
     ),
     h2: (props) => (
       <h2
         {...props}
-        className="mt-6 mb-2 text-xl font-semibold tracking-tight md:text-3xl"
+        className="mt-8 mb-3 text-xl font-semibold tracking-tight md:text-3xl"
       />
     ),
     h3: (props) => (
       <h3
         {...props}
-        className="mt-4 mb-2 scroll-m-20 text-lg font-semibold tracking-tight md:text-2xl"
+        className="mt-6 mb-3 scroll-m-20 text-lg font-semibold tracking-tight md:text-2xl"
       />
     ),
     h4: (props) => (
       <h4
         {...props}
-        className="mt-4 mb-2 scroll-m-20 text-base font-semibold tracking-tight md:text-xl"
+        className="mt-6 mb-3 scroll-m-20 text-base font-semibold tracking-tight md:text-xl"
       />
     ),
     h5: (props) => (
       <h5
         {...props}
-        className="mt-4 mb-2 scroll-m-20 text-base font-semibold tracking-tight md:text-lg"
+        className="mt-6 mb-3 scroll-m-20 text-base font-semibold tracking-tight md:text-lg"
       />
     ),
     h6: (props) => (
       <h6
         {...props}
-        className="mt-4 mb-2 scroll-m-20 text-lg font-semibold tracking-tight"
+        className="mt-6 mb-3 scroll-m-20 text-lg font-semibold tracking-tight"
       />
     ),
-    p: (props) => <p {...props} className="my-2 text-sm md:text-base" />,
-    ul: (props) => <ul {...props} className="my-1 ml-4 list-disc" />,
-    ol: (props) => <ol {...props} className="my-1 ml-4 list-decimal" />,
-    li: (props) => <li {...props} className="my-1 text-sm md:text-base" />,
+    p: (props) => (
+      <p {...props} className="my-3 text-sm leading-relaxed md:text-base" />
+    ),
+    ul: (props) => <ul {...props} className="my-2 ml-4 list-disc" />,
+    ol: (props) => <ol {...props} className="my-2 ml-4 list-decimal" />,
+    li: (props) => (
+      <li {...props} className="my-1.5 text-sm leading-relaxed md:text-base" />
+    ),
     blockquote: (props) => (
       <blockquote
         {...props}

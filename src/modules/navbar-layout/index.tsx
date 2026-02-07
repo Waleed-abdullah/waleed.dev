@@ -8,7 +8,7 @@ export const NavbarLayout = ({ children }: PropsWithChildren) => {
     <div className="flex h-svh w-full flex-1 flex-col">
       <Navbar />
       <main className="mt-[var(--navbar-height)] flex w-full pb-[var(--footer-height)]">
-        <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-10">
+        <div className="mx-auto flex w-full max-w-5xl flex-col px-6 py-12">
           {children}
         </div>
       </main>

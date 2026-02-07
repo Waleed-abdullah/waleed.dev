@@ -71,7 +71,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-inter: var(--font-inter);
+  --font-sans: var(--font-sans);
 }
 
 @layer base {

@@ -16,7 +16,7 @@ export const RecipesList = async () => {
     }
 
     return (
-      <div className="flex flex-wrap items-center justify-center gap-4 sm:justify-start">
+      <div className="flex flex-wrap items-center justify-center gap-6 sm:justify-start">
         {posts.map((post) => (
           <RecipeCard
             key={post.metadata.title}

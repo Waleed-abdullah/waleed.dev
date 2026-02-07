@@ -7,6 +7,8 @@ interface SubheadingProps extends PropsWithClassName {
 
 export const Subheading = ({ text, className }: SubheadingProps) => {
   return (
-    <p className={cn('text-muted-foreground text-xs', className)}>{text}</p>
+    <p className={cn('text-muted-foreground text-xs sm:text-sm', className)}>
+      {text}
+    </p>
   );
 };
