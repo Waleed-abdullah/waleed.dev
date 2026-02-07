@@ -10,7 +10,7 @@ export const Sections = async () => {
   const recipeFiles = await getPostFiles('recipes');
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-10">
       <HomepageSection title="Work" items={WORK_SECTION_ITEMS} />
       <HomepageSection title="Projects" items={PROJECTS_SECTION_ITEMS} />
       {blogFiles.length > 0 && (

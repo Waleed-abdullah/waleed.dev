@@ -7,7 +7,7 @@ const STRANGTH_TRACK_URL = 'https://strength-track.com';
 
 export const Intro = () => {
   return (
-    <p className="text-secondary-foreground text-sm sm:text-base">
+    <p className="text-secondary-foreground text-sm leading-relaxed sm:text-base">
       Hi there, I am a 22 year old Software Engineer, who loves Computer
       Science, Currently I would say I am pretty good at Frontend Development,
       however I really love Backend and ML as well. Currently, Learning about

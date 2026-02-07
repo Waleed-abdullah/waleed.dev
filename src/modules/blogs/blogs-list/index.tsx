@@ -24,7 +24,7 @@ export const BlogsList = async () => {
     });
 
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-6">
         {sortedPosts.map((post) => (
           <Link
             key={post.metadata.title}
@@ -45,7 +45,7 @@ export const BlogsList = async () => {
                 </p>
               </div>
               {post.metadata.summary && (
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-sm leading-relaxed">
                   {post.metadata.summary}
                 </p>
               )}
