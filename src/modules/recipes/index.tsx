@@ -1,3 +1,5 @@
+import { ClientErrorBoundary } from '@/core/components/error-boundary';
+
 import { RecipesList } from './recipes-list';
 
 export const Recipes = () => {
@@ -11,7 +13,15 @@ export const Recipes = () => {
           Here I share recipes for cool stuff that I have made
         </p>
       </div>
-      <RecipesList />
+      <ClientErrorBoundary
+        fallback={
+          <div className="w-full text-center">
+            <p>Welp, something went wrong</p>
+          </div>
+        }
+      >
+        <RecipesList />
+      </ClientErrorBoundary>
     </div>
   );
 };

@@ -1,5 +1,7 @@
 import Link from 'next/link';
 
+import { ClientErrorBoundary } from '@/core/components/error-boundary';
+
 import { BlogsList } from './blogs-list';
 
 const FEYNMAN_INFO_LINK =
@@ -20,7 +22,15 @@ export const Blogs = () => {
           ) maybe sometimes I will write blogs on random stuff
         </p>
       </div>
-      <BlogsList />
+      <ClientErrorBoundary
+        fallback={
+          <div className="w-full text-center">
+            <p>Welp, something went wrong</p>
+          </div>
+        }
+      >
+        <BlogsList />
+      </ClientErrorBoundary>
     </div>
   );
 };
