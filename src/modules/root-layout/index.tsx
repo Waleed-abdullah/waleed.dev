@@ -1,6 +1,7 @@
 import { IBM_Plex_Sans } from 'next/font/google';
 
 import { type PropsWithChildren } from '@/core/types/common';
+import { GymFab } from '@/modules/gym-fab';
 
 import { RootLayoutProviders } from './providers';
 import { Scripts } from './Scripts';
@@ -17,7 +18,10 @@ export const RootLayout = ({ children }: PropsWithChildren) => {
       <body
         className={`${ibmPlexSans.variable} ${ibmPlexSans.className} flex h-svh w-svw antialiased`}
       >
-        <RootLayoutProviders>{children}</RootLayoutProviders>
+        <RootLayoutProviders>
+          {children}
+          <GymFab />
+        </RootLayoutProviders>
         <Scripts />
       </body>
     </html>
