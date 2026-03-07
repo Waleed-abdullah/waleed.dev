@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo } from 'react';
 
 import { FAB_DEFAULT_POSITION, FAB_STORAGE_KEY } from '../../constants';
 
@@ -8,7 +8,7 @@ interface Position {
 }
 
 export function useFabPosition() {
-  const [position, setPosition] = useState<Position>(() => {
+  const initialPosition = useMemo<Position>(() => {
     if (typeof window === 'undefined') return FAB_DEFAULT_POSITION;
     try {
       const stored = localStorage.getItem(FAB_STORAGE_KEY);
@@ -16,10 +16,9 @@ export function useFabPosition() {
     } catch {
       return FAB_DEFAULT_POSITION;
     }
-  });
+  }, []);
 
   const savePosition = useCallback((pos: Position) => {
-    setPosition(pos);
     try {
       localStorage.setItem(FAB_STORAGE_KEY, JSON.stringify(pos));
     } catch {
@@ -27,5 +26,5 @@ export function useFabPosition() {
     }
   }, []);
 
-  return { position, savePosition };
+  return { initialPosition, savePosition };
 }

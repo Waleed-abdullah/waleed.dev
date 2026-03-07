@@ -1,6 +1,6 @@
 'use client';
 
-import { useMotionValue } from 'motion/react';
+import { motion, useDragControls, useMotionValue } from 'motion/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { useIsClient } from '@/core/hooks/use-is-client';
@@ -11,16 +11,21 @@ import { useFabPosition } from './hooks/use-fab-position';
 
 export const GymFab = () => {
   const isClient = useIsClient();
-  const { position, savePosition } = useFabPosition();
+  const { initialPosition, savePosition } = useFabPosition();
   const [isOpen, setIsOpen] = useState(false);
   const constraintsRef = useRef<HTMLDivElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const isDragging = useRef(false);
+  const dragControls = useDragControls();
 
-  const x = useMotionValue(position.x);
-  const y = useMotionValue(position.y);
+  const x = useMotionValue(initialPosition.x);
+  const y = useMotionValue(initialPosition.y);
 
   const handleDragEnd = useCallback(() => {
     savePosition({ x: x.get(), y: y.get() });
+    requestAnimationFrame(() => {
+      isDragging.current = false;
+    });
   }, [savePosition, x, y]);
 
   useEffect(() => {
@@ -46,20 +51,30 @@ export const GymFab = () => {
       ref={constraintsRef}
       className="pointer-events-none fixed inset-0 z-[60]"
     >
-      <div
+      <motion.div
         ref={wrapperRef}
         className="pointer-events-auto absolute right-6 bottom-[calc(var(--footer-height)+1rem)] flex flex-col items-end"
+        style={{ x, y }}
+        drag
+        dragControls={dragControls}
+        dragListener={false}
+        dragMomentum={false}
+        dragElastic={0.1}
+        dragConstraints={constraintsRef}
+        onDragStart={() => {
+          isDragging.current = true;
+        }}
+        onDragEnd={handleDragEnd}
       >
         <PrCard isOpen={isOpen} />
         <FabButton
           isOpen={isOpen}
-          onToggle={() => setIsOpen((prev) => !prev)}
-          x={x}
-          y={y}
-          dragConstraints={constraintsRef}
-          onDragEnd={handleDragEnd}
+          onToggle={() => {
+            if (!isDragging.current) setIsOpen((prev) => !prev);
+          }}
+          onPointerDown={(e) => dragControls.start(e)}
         />
-      </div>
+      </motion.div>
     </div>
   );
 };
