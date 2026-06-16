@@ -12,6 +12,13 @@ export const WORK_SECTION_ITEMS: HomepageSectionItem[] = [
 
 export const PROJECTS_SECTION_ITEMS: HomepageSectionItem[] = [
   {
+    title: 'BetterConfig',
+    subtitle: 'Remote config and feature flags on the edge.',
+    description:
+      'Designed and built BetterConfig end to end, an edge-native platform for managing typed configuration and feature flags, then reading them at runtime through a low-latency SDK. The whole system runs on the Cloudflare edge and is split along a strict write/read seam: a Next.js 16 dashboard backed by a Hono control-plane worker that owns the source of truth in D1 via Drizzle, plus a dependency-light read worker that serves published config straight from KV with no database on the hot path. Added usage metering with Analytics Engine, better-auth sessions with role-based access control, hashed bearer-token auth, dual-key rate limiting, and Polar billing, with a single Zod contract shared across every app in the stack. It all lives in a pnpm and Turborepo monorepo, with a typed React SDK that supports live refresh and CLI type generation.',
+    link: 'https://betterconfig.dev',
+  },
+  {
     title: 'Imagine Web',
     subtitle: 'AI generation platform.',
     description:
