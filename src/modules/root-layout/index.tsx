@@ -14,7 +14,7 @@ export const RootLayout = ({ children }: PropsWithChildren) => {
         <HeadContent />
         <RootScripts />
       </head>
-      <body className="flex h-svh w-svw font-sans antialiased">
+      <body className="flex h-svh w-full font-sans antialiased">
         <RootLayoutProviders>
           {children}
           <GymFab />
