@@ -53,8 +53,9 @@ export const metadata = {
 - `keywords`, `category` and `image` are optional. `category` defaults to `Blog` or `Recipe` in the page meta tags. `image` is a path to a file in `public/`; it is shown on the recipe card.
 - `metadata` must be a self-contained literal: `export const metadata = {...}` with only literal values. It cannot reference imports or other bindings, because the build reads it on its own, without the rest of the post (see `plugins/post-metadata.mts`).
 - The metadata is validated with Zod at build time.
+- Do not add the title or date to the post body. The post page renders them, along with an estimated reading time, from the metadata.
 
-Fenced code blocks are highlighted at build time with Shiki. New posts are picked up automatically by the lists, the post routes and the sitemap.
+Fenced code blocks are highlighted at build time with Shiki. `##` and `###` headings get ids and appear in the post's table of contents. New posts are picked up automatically by the lists, the post routes and the sitemap.
 
 ## Deployment
 

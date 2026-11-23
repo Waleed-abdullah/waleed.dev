@@ -1,72 +1,65 @@
 import { Link } from '@tanstack/react-router';
-import type { FC } from 'react';
+
+import { RECIPE_PREVIEWS } from '@/posts/recipes/components/previews';
 
 interface RecipeCardProps {
-  title: string;
   slug: string;
-  imageUrl?: string;
+  title: string;
   description: string;
+  /** ISO date from the post metadata */
   date: string;
-  category?: string;
-  tags?: string[];
+  formattedDate: string;
+  imageUrl?: string;
 }
 
-export const RecipeCard: FC<RecipeCardProps> = ({
-  title,
+export const RecipeCard = ({
   slug,
-  imageUrl,
+  title,
   description,
   date,
-  category,
-  tags = [],
-}) => {
+  formattedDate,
+  imageUrl,
+}: RecipeCardProps) => {
+  const Preview = RECIPE_PREVIEWS[slug];
+
   return (
     <Link
       to="/recipes/$slug"
       params={{ slug }}
-      className="bg-background border-border group w-[300px] cursor-pointer overflow-hidden rounded-xl border shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:shadow-white/5 dark:hover:shadow-white/10"
+      className="group border-border bg-background hover:border-muted-foreground/50 focus-visible:ring-ring flex h-full flex-col overflow-hidden rounded-xl border transition-colors focus-visible:ring-2 focus-visible:outline-none"
     >
-      {imageUrl && (
-        <div className="relative h-[200px] w-full overflow-hidden">
-          <img
-            src={imageUrl}
-            alt={title}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 size-full object-cover text-transparent transition-transform duration-300 group-hover:scale-105"
-          />
-          {category && (
-            <div className="bg-background/50 text-foreground absolute top-2 right-2 rounded-full px-2 py-1 text-xs font-medium">
-              {category}
-            </div>
-          )}
-        </div>
-      )}
-      <div className="p-6">
-        <h3 className="link-underline mb-2 line-clamp-2 w-fit text-xl font-semibold group-hover:after:w-full">
-          {title}
-        </h3>
-        <p className="text-muted-foreground mb-4 line-clamp-3 text-sm leading-relaxed">
+      <span
+        aria-hidden="true"
+        className="bg-muted/50 border-border relative flex h-40 items-center justify-center overflow-hidden border-b sm:h-44"
+      >
+        {Preview ? (
+          <Preview />
+        ) : (
+          imageUrl && (
+            <img
+              src={imageUrl}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="size-full object-cover"
+            />
+          )
+        )}
+      </span>
+      <span className="flex flex-1 flex-col gap-1.5 p-5">
+        <span className="text-lg font-semibold">
+          <span className="link-underline link-underline-group">{title}</span>
+        </span>
+        <span className="text-muted-foreground text-[15px] leading-relaxed">
           {description}
-        </p>
-        <div className="flex flex-col gap-2">
-          <div className="text-muted-foreground flex items-center justify-between text-sm">
-            <span className="flex items-center gap-1">{date}</span>
-          </div>
-          {tags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="bg-muted text-muted-foreground rounded-full px-2 py-1 text-xs"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+        </span>
+        <time
+          dateTime={date}
+          className="text-muted-foreground mt-auto pt-2 font-mono text-[13px]"
+        >
+          {formattedDate}
+        </time>
+      </span>
     </Link>
   );
 };

@@ -7,30 +7,49 @@ import {
 
 export type PostsType = 'blogs' | 'recipes';
 
+/** An h2 or h3 heading of a post, with the id it has in the rendered post. */
+export interface PostHeading {
+  depth: 2 | 3;
+  text: string;
+  id: string;
+}
+
 export interface Post {
   slug: string;
   metadata: PostMetadataSchemaType;
+  readingMinutes: number;
+  headings: PostHeading[];
 }
 
 export interface PostWithType extends Post {
   type: PostsType;
 }
 
+/** The newer and older neighbours of a post, by date. */
+export interface AdjacentPosts {
+  newer?: { slug: string; title: string };
+  older?: { slug: string; title: string };
+}
+
 interface PostModule {
   default: MDXContent;
 }
 
-// Only the `metadata` export of each post (see the post-metadata plugin in
-// vite.config.mts), so listing posts does not pull in their bodies.
-const POST_METADATA: Record<PostsType, Record<string, unknown>> = {
-  blogs: import.meta.glob('/src/posts/blogs/*.mdx', {
+interface PostMetadataModule {
+  metadata: unknown;
+  readingMinutes: number;
+  headings: PostHeading[];
+}
+
+// Only the `metadata` export of each post plus values computed from its body
+// (see plugins/post-metadata.mts), so listing posts does not pull in bodies.
+const POST_METADATA: Record<PostsType, Record<string, PostMetadataModule>> = {
+  blogs: import.meta.glob<PostMetadataModule>('/src/posts/blogs/*.mdx', {
     query: '?metadata',
-    import: 'metadata',
     eager: true,
   }),
-  recipes: import.meta.glob('/src/posts/recipes/*.mdx', {
+  recipes: import.meta.glob<PostMetadataModule>('/src/posts/recipes/*.mdx', {
     query: '?metadata',
-    import: 'metadata',
     eager: true,
   }),
 };
@@ -66,17 +85,39 @@ export const getPost = (type: PostsType, slug: string): Post | undefined => {
 
   if (!Object.hasOwn(POST_METADATA[type], path)) return undefined;
 
-  const metadata = POST_METADATA[type][path];
+  const { metadata, readingMinutes, headings } = POST_METADATA[type][path];
 
   if (!isValidPostMetadata(metadata)) {
     throw new Error(`Invalid metadata for ${slug}.mdx`);
   }
 
-  return { slug, metadata };
+  return { slug, metadata, readingMinutes, headings };
 };
 
 export const getAllPostSlugsWithMetadata = (type: PostsType): Post[] => {
   return getPostSlugs(type).map((slug) => getPost(type, slug) as Post);
+};
+
+/** Posts of a type, newest first. */
+export const getPostsByDate = (type: PostsType): Post[] => {
+  return getAllPostSlugsWithMetadata(type).sort(
+    (a, b) =>
+      new Date(b.metadata.date).getTime() - new Date(a.metadata.date).getTime()
+  );
+};
+
+export const getAdjacentPosts = (
+  type: PostsType,
+  slug: string
+): AdjacentPosts => {
+  const posts = getPostsByDate(type);
+  const index = posts.findIndex((post) => post.slug === slug);
+  const toLink = (post?: Post) =>
+    post && { slug: post.slug, title: post.metadata.title };
+
+  if (index === -1) return {};
+
+  return { newer: toLink(posts[index - 1]), older: toLink(posts[index + 1]) };
 };
 
 type PostContentPromise = Promise<MDXContent> & {

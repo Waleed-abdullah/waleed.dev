@@ -22,10 +22,12 @@
   --destructive-foreground: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: oklch(0.556 0 0);
 
-  --navbar-height: 3rem;
+  --navbar-height: 3.5rem;
   --footer-height: 3rem;
+  /* Footer height plus the iOS home indicator area (viewport-fit=cover) */
+  --footer-offset: calc(var(--footer-height) + env(safe-area-inset-bottom));
 }
 
 .dark {
@@ -47,7 +49,7 @@
   --destructive-foreground: oklch(0.637 0.237 25.331);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
-  --ring: oklch(0.439 0 0);
+  --ring: oklch(0.708 0 0);
 }
 
 @theme inline {
@@ -75,6 +77,8 @@
     'IBM Plex Sans Variable', 'IBM Plex Sans Fallback', ui-sans-serif,
     system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
     'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono:
+    'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 @layer base {
@@ -140,7 +144,81 @@
 }
 
 @layer utilities {
+  /*
+   * Underline that grows from the left on hover. Drawn as a background so it
+   * also works on link text that wraps onto several lines. Add `group` to a
+   * parent and `link-underline-group` to grow it when the parent is hovered.
+   */
   .link-underline {
-    @apply after:bg-primary relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:transition-[width] after:duration-200 hover:after:w-full;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0 1px;
+    transition: background-size 200ms ease;
+  }
+
+  .link-underline:hover,
+  .link-underline:focus-visible,
+  .group:hover .link-underline-group,
+  .group:focus-visible .link-underline-group {
+    background-size: 100% 1px;
+  }
+}
+
+/*
+ * Page transitions. The router wraps each navigation in a view transition
+ * (defaultViewTransition in src/router.tsx).
+ *
+ * The root snapshot is the visible viewport, so the page fades from exactly
+ * what was on screen (wherever it was scrolled) to the new page. The navbar
+ * and footer have their own view-transition-name: only their live state is
+ * shown, so they stay still and the navbar underline slides without leaving a
+ * copy of the old one behind.
+ */
+::view-transition {
+  background-color: var(--background);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-group(navbar),
+  ::view-transition-group(site-footer),
+  ::view-transition-new(navbar),
+  ::view-transition-new(site-footer) {
+    animation: none;
+  }
+
+  ::view-transition-old(navbar),
+  ::view-transition-old(site-footer) {
+    animation: none;
+    opacity: 0;
+  }
+
+  ::view-transition-old(root) {
+    animation: page-out 140ms ease-in both;
+  }
+
+  ::view-transition-new(root) {
+    animation: page-in 300ms cubic-bezier(0.2, 0.7, 0.2, 1) 60ms both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+@keyframes page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
 }

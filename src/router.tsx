@@ -29,6 +29,8 @@ export function getRouter() {
     defaultPreload: 'intent',
     notFoundMode: 'root',
     caseSensitive: true,
+    // Cross-fade the page content between routes (see globals.css).
+    defaultViewTransition: true,
     // Post bodies are lazily loaded chunks. Tell the client which posts the
     // server rendered so it can load them before hydrating, which keeps the
     // server-rendered content in place without a suspense fallback. A failed

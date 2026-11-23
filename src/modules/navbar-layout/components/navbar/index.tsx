@@ -8,8 +8,15 @@ import { ThemeSwitchButton } from './theme-switch-button';
 
 export const Navbar = () => {
   return (
-    <nav className="fixed inset-x-0 top-0 z-50 flex h-[var(--navbar-height)] items-center justify-between bg-transparent px-6 py-2 backdrop-blur">
-      <Link to={ABSOLUTE_ROUTES.ROOT} aria-label="Go to home">
+    <nav
+      aria-label="Primary"
+      className="border-border bg-background/80 fixed inset-x-0 top-0 z-50 flex h-[var(--navbar-height)] items-center justify-between border-b pr-[max(0.5rem,env(safe-area-inset-right))] pl-[max(0.5rem,env(safe-area-inset-left))] backdrop-blur-md [view-transition-name:navbar] sm:px-4"
+    >
+      <Link
+        to={ABSOLUTE_ROUTES.ROOT}
+        aria-label="Go to home"
+        className="focus-visible:ring-ring flex size-11 items-center justify-center rounded-md focus-visible:ring-2 focus-visible:outline-none"
+      >
         <WaleedIcon className="size-6" />
       </Link>
       <NavbarTabs />

@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router';
-import { ArrowUpRight } from 'lucide-react';
 
+import { formatPostDate } from '@/core/utils/date';
 import { type Post } from '@/core/utils/post';
 
 interface BlogsListProps {
@@ -23,36 +23,35 @@ export const BlogsList = ({ posts }: BlogsListProps) => {
   });
 
   return (
-    <div className="flex flex-col gap-6">
+    <ul className="-mx-3 flex flex-col">
       {sortedPosts.map((post) => (
-        <Link
-          key={post.metadata.title}
-          to="/blogs/$slug"
-          params={{ slug: post.slug }}
-          className="group"
-        >
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <h2 className="link-underline text-lg font-medium group-hover:after:w-full">
+        <li key={post.slug}>
+          <Link
+            to="/blogs/$slug"
+            params={{ slug: post.slug }}
+            className="group hover:bg-muted/60 focus-visible:ring-ring flex flex-col gap-1 rounded-lg px-3 py-3.5 transition-colors focus-visible:ring-2 focus-visible:outline-none"
+          >
+            <span className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <span className="text-base leading-snug font-semibold sm:text-[17px]">
+                <span className="link-underline link-underline-group">
                   {post.metadata.title}
-                </h2>
-                <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-              <p className="text-muted-foreground text-sm">
-                {new Date(post.metadata.date).toLocaleDateString('en-US', {
-                  timeZone: 'UTC',
-                })}
-              </p>
-            </div>
+                </span>
+              </span>
+              <time
+                dateTime={post.metadata.date}
+                className="text-muted-foreground font-mono text-[13px]"
+              >
+                {formatPostDate(post.metadata.date)}
+              </time>
+            </span>
             {post.metadata.summary && (
-              <p className="text-muted-foreground text-sm leading-relaxed">
+              <span className="text-muted-foreground text-[15px] leading-relaxed">
                 {post.metadata.summary}
-              </p>
+              </span>
             )}
-          </div>
-        </Link>
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };

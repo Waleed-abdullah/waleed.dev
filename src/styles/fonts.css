@@ -6,6 +6,13 @@
 @import '@fontsource-variable/ibm-plex-sans/wght.css';
 
 /*
+ * IBM Plex Mono for section labels, dates, keyboard hints and code. Static
+ * weights 400 and 500, every subset limited by unicode-range.
+ */
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+/*
  * Metric-adjusted fallback shown until the web font loads, to limit layout
  * shift. Same values next/font generated for IBM Plex Sans.
  */

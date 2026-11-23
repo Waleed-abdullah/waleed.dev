@@ -1,12 +1,40 @@
-import { useLocation, useNavigate, useRouter } from '@tanstack/react-router';
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useRouter,
+} from '@tanstack/react-router';
+import { motion } from 'motion/react';
 import { useEffect } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 
-import { AnimatedTabsTrigger, Tabs, TabsList } from '@/core/components/ui/tabs';
 import { HOT_KEYS } from '@/core/constants/hot-keys';
 import { ABSOLUTE_ROUTES } from '@/core/constants/routes';
+import { cn } from '@/core/lib/cn';
 
-const TABS_LAYOUT_ID = 'navbar-tabs';
+const ACTIVE_INDICATOR_LAYOUT_ID = 'navbar-active-indicator';
+
+const NAV_ITEMS = [
+  {
+    to: ABSOLUTE_ROUTES.ROOT,
+    label: 'Home',
+    hotkey: HOT_KEYS.HOME,
+    isActive: (pathname: string) => pathname === ABSOLUTE_ROUTES.ROOT,
+  },
+  {
+    to: ABSOLUTE_ROUTES.BLOGS,
+    label: 'Blogs',
+    hotkey: HOT_KEYS.BLOGS,
+    isActive: (pathname: string) => pathname.startsWith(ABSOLUTE_ROUTES.BLOGS),
+  },
+  {
+    to: ABSOLUTE_ROUTES.RECIPES,
+    label: 'Recipes',
+    hotkey: HOT_KEYS.RECIPES,
+    isActive: (pathname: string) =>
+      pathname.startsWith(ABSOLUTE_ROUTES.RECIPES),
+  },
+] as const;
 
 export const NavbarTabs = () => {
   const pathname = useLocation({ select: (location) => location.pathname });
@@ -33,46 +61,38 @@ export const NavbarTabs = () => {
   }, []);
 
   return (
-    <Tabs value={pathname}>
-      <TabsList>
-        <AnimatedTabsTrigger
-          layoutId={TABS_LAYOUT_ID}
-          value={ABSOLUTE_ROUTES.ROOT}
-          isActive={pathname === ABSOLUTE_ROUTES.ROOT}
-          onClick={() => navigate({ to: ABSOLUTE_ROUTES.ROOT })}
-          className="cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
-        >
-          <div className="flex items-center gap-2 text-sm sm:text-base">
-            <kbd className="hidden sm:block">[H]</kbd>
-            <span className="z-50">Home</span>
-          </div>
-        </AnimatedTabsTrigger>
+    <ul className="flex items-center">
+      {NAV_ITEMS.map((item) => {
+        const isActive = item.isActive(pathname);
 
-        <AnimatedTabsTrigger
-          layoutId={TABS_LAYOUT_ID}
-          value={ABSOLUTE_ROUTES.BLOGS}
-          isActive={pathname.startsWith(ABSOLUTE_ROUTES.BLOGS)}
-          onClick={() => navigate({ to: ABSOLUTE_ROUTES.BLOGS })}
-          className="cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
-        >
-          <div className="flex items-center gap-2 text-sm sm:text-base">
-            <kbd className="hidden sm:block">[B]</kbd>
-            <span className="z-50">Blogs</span>
-          </div>
-        </AnimatedTabsTrigger>
-        <AnimatedTabsTrigger
-          layoutId={TABS_LAYOUT_ID}
-          value={ABSOLUTE_ROUTES.RECIPES}
-          isActive={pathname.startsWith(ABSOLUTE_ROUTES.RECIPES)}
-          onClick={() => navigate({ to: ABSOLUTE_ROUTES.RECIPES })}
-          className="cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
-        >
-          <div className="flex items-center gap-2 text-sm sm:text-base">
-            <kbd className="hidden sm:block">[R]</kbd>
-            <span className="z-50">Recipes</span>
-          </div>
-        </AnimatedTabsTrigger>
-      </TabsList>
-    </Tabs>
+        return (
+          <li key={item.to}>
+            <Link
+              to={item.to}
+              activeOptions={{ exact: item.to === ABSOLUTE_ROUTES.ROOT }}
+              className={cn(
+                'focus-visible:ring-ring relative flex h-11 items-center gap-2 rounded-md px-2.5 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none sm:px-3.5 sm:text-[15px]',
+                isActive
+                  ? 'text-foreground'
+                  : 'text-muted-foreground hover:text-foreground'
+              )}
+            >
+              <kbd className="text-muted-foreground hidden font-mono text-xs font-normal uppercase sm:inline">
+                {item.hotkey}
+              </kbd>
+              {item.label}
+              {isActive && (
+                <motion.span
+                  layoutId={ACTIVE_INDICATOR_LAYOUT_ID}
+                  aria-hidden="true"
+                  className="bg-foreground absolute inset-x-2.5 bottom-0.5 h-0.5 rounded-full sm:inset-x-3.5"
+                  transition={{ type: 'spring', bounce: 0.2, duration: 0.4 }}
+                />
+              )}
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 };

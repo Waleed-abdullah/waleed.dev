@@ -1,4 +1,5 @@
 import { ClientErrorBoundary } from '@/core/components/error-boundary';
+import { PageHeader } from '@/core/components/page-header';
 import { type Post } from '@/core/utils/post';
 
 import { RecipesList } from './recipes-list';
@@ -9,15 +10,10 @@ interface RecipesProps {
 
 export const Recipes = ({ posts }: RecipesProps) => {
   return (
-    <div className="flex flex-col gap-10">
-      <div className="flex flex-col gap-4">
-        <h1 className="flex gap-1 text-2xl font-bold tracking-tight sm:text-3xl">
-          <span className="text-muted-foreground">*</span> <p>Recipes</p>
-        </h1>
-        <p className="text-muted-foreground leading-relaxed">
-          Here I share recipes for cool stuff that I have made
-        </p>
-      </div>
+    <div className="mx-auto flex w-full max-w-[36rem] flex-col gap-8 sm:gap-10">
+      <PageHeader title="Recipes">
+        Here I share recipes for cool stuff that I have made
+      </PageHeader>
       <ClientErrorBoundary
         fallback={
           <div className="w-full text-center">

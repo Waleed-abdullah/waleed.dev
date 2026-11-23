@@ -1,3 +1,4 @@
+import { formatPostDate } from '@/core/utils/date';
 import { type Post } from '@/core/utils/post';
 
 import { RecipeCard } from './recipe-card';
@@ -16,22 +17,19 @@ export const RecipesList = ({ posts }: RecipesListProps) => {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-6 sm:justify-start">
+    <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2">
       {posts.map((post) => (
-        <RecipeCard
-          key={post.metadata.title}
-          title={post.metadata.title}
-          slug={post.slug}
-          description={post.metadata.summary}
-          imageUrl={post.metadata.image}
-          date={new Date(post.metadata.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            timeZone: 'UTC',
-          })}
-        />
+        <li key={post.slug}>
+          <RecipeCard
+            slug={post.slug}
+            title={post.metadata.title}
+            description={post.metadata.summary}
+            imageUrl={post.metadata.image}
+            date={post.metadata.date}
+            formattedDate={formatPostDate(post.metadata.date)}
+          />
+        </li>
       ))}
-    </div>
+    </ul>
   );
 };

@@ -11,6 +11,7 @@ import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
 
 import { postMetadata } from './plugins/post-metadata.mts';
+import { remarkHeadingIds } from './plugins/remark-heading-ids.mts';
 import { remarkMdxRsListSpread } from './plugins/remark-mdx-rs-list-spread.mts';
 
 const PUBLIC_DIR = fileURLToPath(new URL('./public', import.meta.url));
@@ -36,14 +37,14 @@ const shikiOptions: RehypeShikiOptions = {
   langs: [],
   lazy: true,
   mergeWhitespaces: true,
-  // Keep the trailing newline so blocks end with an empty line, as before.
-  stripEndNewline: false,
   transformers: [
     {
       name: 'code-block-markers',
-      // Keep the raw code on the <pre> so the copy button can copy it.
+      // Keep the raw code on the <pre> so the copy button can copy it, and
+      // the language for the code block header.
       pre(node) {
         node.properties['data-raw'] = this.source;
+        node.properties['data-language'] = this.options.lang;
       },
       // Mark the <code> of a highlighted block so it does not get the
       // inline code styles (see src/mdx-components.tsx).
@@ -61,13 +62,23 @@ export default defineConfig({
   resolve: {
     tsconfigPaths: true,
   },
+  optimizeDeps: {
+    // Only imported by lazily loaded recipe posts. Pre-bundling them up front
+    // stops the dev server from re-optimizing (and reloading the page, with
+    // duplicate React errors) the first time one of those posts is opened.
+    include: [
+      '@radix-ui/react-switch',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-toggle-group',
+    ],
+  },
   plugins: [
     postMetadata(),
     {
       enforce: 'pre',
       ...mdx({
         providerImportSource: '@/mdx-components',
-        remarkPlugins: [remarkMdxRsListSpread],
+        remarkPlugins: [remarkMdxRsListSpread, remarkHeadingIds],
         rehypePlugins: [[rehypeShiki, shikiOptions]],
       }),
     },

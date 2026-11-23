@@ -1,31 +1,31 @@
-const DATA_INTENSIVE_BOOK_URL =
-  'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/';
+import { EXTERNAL_LINKS } from '@/core/constants/external-links';
 
-const STRANGTH_TRACK_URL = 'https://strength-track.com';
+const INLINE_LINK_CLASS_NAME =
+  'decoration-muted-foreground hover:decoration-foreground focus-visible:ring-ring rounded-sm underline underline-offset-4 transition-colors focus-visible:ring-2 focus-visible:outline-none';
 
 export const Intro = () => {
   return (
-    <p className="text-secondary-foreground text-sm leading-relaxed sm:text-base">
-      Hi there, I am a Software Engineer, who loves Computer Science, Currently
-      I would say I am pretty good at Frontend Development, however I really
-      love Backend and ML as well. Currently, Learning about System design and
-      handling Data-intensive applications (Yes, I am reading{' '}
+    <p className="text-base leading-relaxed sm:text-[17px] sm:leading-[1.75]">
+      I build web products end to end, with most of my experience on the
+      frontend: application architecture, design systems and performance work
+      for AI products. I also work across the backend and ML, and I am currently
+      going deeper on system design and data-intensive applications (reading{' '}
       <a
-        href={DATA_INTENSIVE_BOOK_URL}
-        className="link-underline text-muted-foreground"
+        href={EXTERNAL_LINKS.DATA_INTENSIVE_BOOK}
+        className={INLINE_LINK_CLASS_NAME}
         target="_blank"
         rel="noopener"
       >
         Designing Data-Intensive Applications
       </a>
-      ). Other than that, I love going to the gym. Also building{' '}
+      ). Outside of work I train at the gym and build{' '}
       <a
-        href={STRANGTH_TRACK_URL}
-        className="link-underline text-muted-foreground"
+        href={EXTERNAL_LINKS.STRENGTH_TRACK}
+        className={INLINE_LINK_CLASS_NAME}
         target="_blank"
         rel="noopener"
       >
-        Strangth track
+        Strength Track
       </a>{' '}
       on the side.
     </p>

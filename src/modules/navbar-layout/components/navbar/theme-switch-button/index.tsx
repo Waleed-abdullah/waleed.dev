@@ -24,19 +24,28 @@ export const ThemeSwitchButton = () => {
   useHotkeys(HOT_KEYS.TOGGLE_THEME, toggleTheme);
 
   return (
-    <Button size="icon" variant="ghost" onClick={toggleTheme}>
-      <Sun
-        className={cn(
-          'absolute size-4 transition-all duration-200',
-          BASE_ANIMATION_CLASSES
-        )}
-      />
-      <Moon
-        className={cn(
-          'absolute size-4 transition-all duration-200',
-          BASE_ANIMATION_CLASSES_INVERTED
-        )}
-      />
+    <Button
+      variant="ghost"
+      onClick={toggleTheme}
+      className="text-muted-foreground hover:text-foreground h-11 min-w-11 gap-2 px-3"
+    >
+      <kbd className="hidden font-mono text-xs font-normal uppercase sm:inline">
+        {HOT_KEYS.TOGGLE_THEME}
+      </kbd>
+      <span className="relative flex size-4 items-center justify-center">
+        <Sun
+          className={cn(
+            'absolute size-4 transition-all duration-200',
+            BASE_ANIMATION_CLASSES
+          )}
+        />
+        <Moon
+          className={cn(
+            'absolute size-4 transition-all duration-200',
+            BASE_ANIMATION_CLASSES_INVERTED
+          )}
+        />
+      </span>
       <span className="sr-only">Toggle theme</span>
     </Button>
   );

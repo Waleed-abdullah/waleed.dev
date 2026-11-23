@@ -17,7 +17,7 @@ export const NotFoundPage = () => {
           Sorry, we couldn’t find the page you’re looking for.
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Button asChild variant="outline">
+          <Button asChild variant="outline" className="h-11 px-5">
             <Link to={ABSOLUTE_ROUTES.ROOT}>Go back home</Link>
           </Button>
         </div>

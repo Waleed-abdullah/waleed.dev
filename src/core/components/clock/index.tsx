@@ -59,7 +59,7 @@ export const Clock = ({ size }: ClockProps) => {
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger aria-label="Current time">
                 <div className="relative" style={{ width: size, height: size }}>
                   <div className="border-muted-foreground relative h-full w-full rounded-full border-1">
                     {/* Hour hand */}

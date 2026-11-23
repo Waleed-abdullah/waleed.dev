@@ -11,7 +11,7 @@ export const ComponentShowcase = ({
   return (
     <div
       className={cn(
-        'bg-background border-border relative mx-auto my-4 flex size-full h-full max-h-[300px] items-center justify-center rounded-lg border p-6 shadow-lg dark:shadow-white/5',
+        'bg-background border-border relative mx-auto my-6 flex w-full items-center justify-center rounded-lg border p-4 shadow-lg sm:p-6 dark:shadow-white/5',
         className
       )}
     >
