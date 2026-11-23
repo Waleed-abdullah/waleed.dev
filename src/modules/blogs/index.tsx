@@ -1,13 +1,16 @@
-import Link from 'next/link';
-
 import { ClientErrorBoundary } from '@/core/components/error-boundary';
+import { type Post } from '@/core/utils/post';
 
 import { BlogsList } from './blogs-list';
 
 const FEYNMAN_INFO_LINK =
   'https://www.todoist.com/inspiration/feynman-technique';
 
-export const Blogs = () => {
+interface BlogsProps {
+  posts: Post[];
+}
+
+export const Blogs = ({ posts }: BlogsProps) => {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-4">
@@ -16,9 +19,14 @@ export const Blogs = () => {
         </h1>
         <p className="text-muted-foreground leading-relaxed">
           I write about what i learn and do, (trynna embody the{' '}
-          <Link className="underline" href={FEYNMAN_INFO_LINK} target="_blank">
+          <a
+            className="underline"
+            href={FEYNMAN_INFO_LINK}
+            target="_blank"
+            rel="noopener"
+          >
             Feynman technique
-          </Link>
+          </a>
           ) maybe sometimes I will write blogs on random stuff
         </p>
       </div>
@@ -29,7 +37,7 @@ export const Blogs = () => {
           </div>
         }
       >
-        <BlogsList />
+        <BlogsList posts={posts} />
       </ClientErrorBoundary>
     </div>
   );

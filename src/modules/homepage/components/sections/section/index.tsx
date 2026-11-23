@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 import { type HomepageSectionProps } from './types';
 
 export const HomepageSection = ({ title, items }: HomepageSectionProps) => {
@@ -12,13 +10,14 @@ export const HomepageSection = ({ title, items }: HomepageSectionProps) => {
         {items.map((item) => (
           <div key={item.title} className="flex flex-col gap-2">
             <div className="flex flex-col gap-1">
-              <Link
+              <a
                 href={item.link}
                 target="_blank"
+                rel="noopener"
                 className="link-underline w-fit"
               >
                 <h3 className="text-base font-bold sm:text-lg">{item.title}</h3>
-              </Link>
+              </a>
               {item.subtitle && (
                 <p className="text-muted-foreground text-xs sm:text-sm">
                   {item.subtitle}

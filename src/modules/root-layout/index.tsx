@@ -1,23 +1,20 @@
-import { IBM_Plex_Sans } from 'next/font/google';
+import { HeadContent, Scripts } from '@tanstack/react-router';
 
 import { type PropsWithChildren } from '@/core/types/common';
 import { GymFab } from '@/modules/gym-fab';
 
 import { RootLayoutProviders } from './providers';
-import { Scripts } from './Scripts';
-
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-sans',
-});
+import { Scripts as RootScripts } from './Scripts';
 
 export const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <html lang="en" className="overflow-x-hidden">
-      <body
-        className={`${ibmPlexSans.variable} ${ibmPlexSans.className} flex h-svh w-svw antialiased`}
-      >
+    // next-themes sets the theme class and color-scheme on <html> before hydration
+    <html lang="en" className="overflow-x-hidden" suppressHydrationWarning>
+      <head>
+        <HeadContent />
+        <RootScripts />
+      </head>
+      <body className="flex h-svh w-svw font-sans antialiased">
         <RootLayoutProviders>
           {children}
           <GymFab />

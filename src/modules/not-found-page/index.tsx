@@ -1,11 +1,13 @@
-import Link from 'next/link';
+import { Link } from '@tanstack/react-router';
 
 import { Button } from '@/core/components/ui/button';
 import { ABSOLUTE_ROUTES } from '@/core/constants/routes';
 
-export default function NotFound() {
+export const NotFoundPage = () => {
   return (
     <main className="bg-background grid size-full place-items-center px-6 py-24 sm:py-32 lg:px-8">
+      {/* React hoists this into <head>, as Next.js did for its not-found page */}
+      <meta name="robots" content="noindex" />
       <div className="text-center">
         <p className="text-foreground text-base font-semibold">404</p>
         <h1 className="text-foreground mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
@@ -16,10 +18,10 @@ export default function NotFound() {
         </p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Button asChild variant="outline">
-            <Link href={ABSOLUTE_ROUTES.ROOT}>Go back home</Link>
+            <Link to={ABSOLUTE_ROUTES.ROOT}>Go back home</Link>
           </Button>
         </div>
       </div>
     </main>
   );
-}
+};

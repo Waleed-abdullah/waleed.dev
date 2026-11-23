@@ -1,5 +1,4 @@
 import { MailIcon, ScrollText } from 'lucide-react';
-import Link from 'next/link';
 
 import { Clock } from '@/core/components/clock';
 import {
@@ -49,14 +48,15 @@ export const Footer = () => {
         {SOCIAL_LINKS.map((link) => (
           <Tooltip key={link.name}>
             <TooltipTrigger asChild>
-              <Link
+              <a
                 href={link.href}
                 target="_blank"
+                rel="noopener"
                 className="text-muted-foreground hover:text-foreground transition-colors"
                 aria-label={link.name}
               >
                 {link.icon}
-              </Link>
+              </a>
             </TooltipTrigger>
             <TooltipContent side="top">{link.name}</TooltipContent>
           </Tooltip>

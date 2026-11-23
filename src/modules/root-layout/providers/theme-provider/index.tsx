@@ -1,5 +1,3 @@
-'use client';
-
 import { ThemeProvider as NextThemeProvider } from 'next-themes';
 
 import { type PropsWithChildren } from '@/core/types/common';

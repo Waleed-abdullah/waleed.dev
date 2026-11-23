@@ -1,5 +1,3 @@
-'use client';
-
 import { useScramble, type UseScrambleProps } from 'use-scramble';
 
 import type { PropsWithClassName } from '@/core/types/common';

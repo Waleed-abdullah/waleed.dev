@@ -1,3 +1,5 @@
+import { createFileRoute } from '@tanstack/react-router';
+
 import { SwitchShowcase } from '@/posts/recipes/components/switch-showcase';
 
 const PlaygroundPage = () => {
@@ -8,4 +10,6 @@ const PlaygroundPage = () => {
   );
 };
 
-export default PlaygroundPage;
+export const Route = createFileRoute('/_with-navbar/playground')({
+  component: PlaygroundPage,
+});

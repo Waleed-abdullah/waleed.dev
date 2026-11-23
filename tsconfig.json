@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
+    "target": "ES2022",
     "lib": [
       "dom",
       "dom.iterable",
       "esnext"
+    ],
+    "types": [
+      "vite/client",
+      "node"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -16,12 +20,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "allowImportingTsExtensions": true,
     "paths": {
       "@/*": [
         "./src/*"
@@ -29,13 +28,17 @@
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    "**/*.mts",
+    "src/**/*.mdx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".output",
+    ".nitro",
+    ".tanstack",
+    ".vercel",
+    "dist"
   ]
 }
