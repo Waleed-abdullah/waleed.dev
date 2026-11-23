@@ -1,8 +1,13 @@
 import { ClientErrorBoundary } from '@/core/components/error-boundary';
+import { type Post } from '@/core/utils/post';
 
 import { RecipesList } from './recipes-list';
 
-export const Recipes = () => {
+interface RecipesProps {
+  posts: Post[];
+}
+
+export const Recipes = ({ posts }: RecipesProps) => {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-col gap-4">
@@ -20,7 +25,7 @@ export const Recipes = () => {
           </div>
         }
       >
-        <RecipesList />
+        <RecipesList posts={posts} />
       </ClientErrorBoundary>
     </div>
   );

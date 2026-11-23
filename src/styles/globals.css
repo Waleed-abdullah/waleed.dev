@@ -71,7 +71,10 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --font-sans: var(--font-sans);
+  --font-sans:
+    'IBM Plex Sans Variable', 'IBM Plex Sans Fallback', ui-sans-serif,
+    system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 @layer base {

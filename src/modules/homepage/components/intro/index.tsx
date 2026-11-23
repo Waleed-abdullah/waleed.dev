@@ -1,5 +1,3 @@
-import Link from 'next/link';
-
 const DATA_INTENSIVE_BOOK_URL =
   'https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/';
 
@@ -12,21 +10,23 @@ export const Intro = () => {
       I would say I am pretty good at Frontend Development, however I really
       love Backend and ML as well. Currently, Learning about System design and
       handling Data-intensive applications (Yes, I am reading{' '}
-      <Link
+      <a
         href={DATA_INTENSIVE_BOOK_URL}
         className="link-underline text-muted-foreground"
         target="_blank"
+        rel="noopener"
       >
         Designing Data-Intensive Applications
-      </Link>
+      </a>
       ). Other than that, I love going to the gym. Also building{' '}
-      <Link
+      <a
         href={STRANGTH_TRACK_URL}
         className="link-underline text-muted-foreground"
         target="_blank"
+        rel="noopener"
       >
         Strangth track
-      </Link>{' '}
+      </a>{' '}
       on the side.
     </p>
   );

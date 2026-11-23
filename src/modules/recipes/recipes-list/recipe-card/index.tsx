@@ -1,10 +1,9 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { Link } from '@tanstack/react-router';
 import type { FC } from 'react';
 
 interface RecipeCardProps {
   title: string;
-  href: string;
+  slug: string;
   imageUrl?: string;
   description: string;
   date: string;
@@ -14,7 +13,7 @@ interface RecipeCardProps {
 
 export const RecipeCard: FC<RecipeCardProps> = ({
   title,
-  href,
+  slug,
   imageUrl,
   description,
   date,
@@ -23,16 +22,18 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 }) => {
   return (
     <Link
-      href={href}
+      to="/recipes/$slug"
+      params={{ slug }}
       className="bg-background border-border group w-[300px] cursor-pointer overflow-hidden rounded-xl border shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:shadow-white/5 dark:hover:shadow-white/10"
     >
       {imageUrl && (
         <div className="relative h-[200px] w-full overflow-hidden">
-          <Image
+          <img
             src={imageUrl}
             alt={title}
-            fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 size-full object-cover text-transparent transition-transform duration-300 group-hover:scale-105"
           />
           {category && (
             <div className="bg-background/50 text-foreground absolute top-2 right-2 rounded-full px-2 py-1 text-xs font-medium">

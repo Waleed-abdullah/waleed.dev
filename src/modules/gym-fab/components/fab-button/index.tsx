@@ -1,5 +1,3 @@
-'use client';
-
 import { Dumbbell } from 'lucide-react';
 import { motion } from 'motion/react';
 import { type PointerEvent } from 'react';

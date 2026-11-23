@@ -1,5 +1,3 @@
-'use client';
-
 import { motion, useDragControls, useMotionValue } from 'motion/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 

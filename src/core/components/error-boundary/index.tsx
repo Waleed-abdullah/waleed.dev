@@ -1,5 +1,3 @@
-'use client';
-
 import { ErrorBoundary } from 'react-error-boundary';
 
 import { type PropsWithChildren } from '@/core/types/common';

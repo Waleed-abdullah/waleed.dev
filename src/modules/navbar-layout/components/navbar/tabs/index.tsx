@@ -1,6 +1,4 @@
-'use client';
-
-import { usePathname, useRouter } from 'next/navigation';
+import { useLocation, useNavigate, useRouter } from '@tanstack/react-router';
 import { useEffect } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 
@@ -11,25 +9,26 @@ import { ABSOLUTE_ROUTES } from '@/core/constants/routes';
 const TABS_LAYOUT_ID = 'navbar-tabs';
 
 export const NavbarTabs = () => {
-  const pathname = usePathname();
+  const pathname = useLocation({ select: (location) => location.pathname });
   const router = useRouter();
+  const navigate = useNavigate();
 
   useHotkeys(HOT_KEYS.HOME, () => {
-    router.push(ABSOLUTE_ROUTES.ROOT);
+    navigate({ to: ABSOLUTE_ROUTES.ROOT });
   });
 
   useHotkeys(HOT_KEYS.BLOGS, () => {
-    router.push(ABSOLUTE_ROUTES.BLOGS);
+    navigate({ to: ABSOLUTE_ROUTES.BLOGS });
   });
 
   useHotkeys(HOT_KEYS.RECIPES, () => {
-    router.push(ABSOLUTE_ROUTES.RECIPES);
+    navigate({ to: ABSOLUTE_ROUTES.RECIPES });
   });
 
   useEffect(() => {
-    router.prefetch(ABSOLUTE_ROUTES.ROOT);
-    router.prefetch(ABSOLUTE_ROUTES.BLOGS);
-    router.prefetch(ABSOLUTE_ROUTES.RECIPES);
+    router.preloadRoute({ to: ABSOLUTE_ROUTES.ROOT });
+    router.preloadRoute({ to: ABSOLUTE_ROUTES.BLOGS });
+    router.preloadRoute({ to: ABSOLUTE_ROUTES.RECIPES });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -40,7 +39,7 @@ export const NavbarTabs = () => {
           layoutId={TABS_LAYOUT_ID}
           value={ABSOLUTE_ROUTES.ROOT}
           isActive={pathname === ABSOLUTE_ROUTES.ROOT}
-          onClick={() => router.push(ABSOLUTE_ROUTES.ROOT)}
+          onClick={() => navigate({ to: ABSOLUTE_ROUTES.ROOT })}
           className="cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
         >
           <div className="flex items-center gap-2 text-sm sm:text-base">
@@ -53,7 +52,7 @@ export const NavbarTabs = () => {
           layoutId={TABS_LAYOUT_ID}
           value={ABSOLUTE_ROUTES.BLOGS}
           isActive={pathname.startsWith(ABSOLUTE_ROUTES.BLOGS)}
-          onClick={() => router.push(ABSOLUTE_ROUTES.BLOGS)}
+          onClick={() => navigate({ to: ABSOLUTE_ROUTES.BLOGS })}
           className="cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
         >
           <div className="flex items-center gap-2 text-sm sm:text-base">
@@ -65,7 +64,7 @@ export const NavbarTabs = () => {
           layoutId={TABS_LAYOUT_ID}
           value={ABSOLUTE_ROUTES.RECIPES}
           isActive={pathname.startsWith(ABSOLUTE_ROUTES.RECIPES)}
-          onClick={() => router.push(ABSOLUTE_ROUTES.RECIPES)}
+          onClick={() => navigate({ to: ABSOLUTE_ROUTES.RECIPES })}
           className="cursor-pointer focus-visible:ring-0 focus-visible:ring-offset-0"
         >
           <div className="flex items-center gap-2 text-sm sm:text-base">

@@ -1,19 +1,27 @@
 import type { MDXComponents } from 'mdx/types';
-import Image from 'next/image';
-import { type BundledLanguage } from 'shiki';
+import type { ComponentProps } from 'react';
 
 import { CodeBlock } from './core/components/code-block';
 import { cn } from './core/lib/cn';
 
-export const useMDXComponents = (components: MDXComponents): MDXComponents => {
+type CodeBlockMarkerProps = {
+  /** Set on the <pre> of a highlighted block by the shiki transformer in vite.config.mts */
+  'data-raw'?: string;
+  /** Set on the <code> of a highlighted block by the shiki transformer in vite.config.mts */
+  'data-code-block'?: string;
+};
+
+export const useMDXComponents = (components?: MDXComponents): MDXComponents => {
   return {
     ...components,
     img: (props) => (
-      <Image
+      <img
         {...props}
         alt={props.alt}
         height={300}
         width={300}
+        loading="lazy"
+        decoding="async"
         className="my-4 rounded-md"
       />
     ),
@@ -67,24 +75,38 @@ export const useMDXComponents = (components: MDXComponents): MDXComponents => {
         className="[&>*]:text-muted-foreground my-6 border-l-2 pl-4 text-sm italic md:pl-6 md:text-base"
       />
     ),
-    code: async (props) => {
-      const { children, className } = props;
-      const language = className?.split('-')[1] as BundledLanguage;
-      if (!language) {
-        return (
-          <code
-            {...props}
-            className={cn(
-              props.className,
-              'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold break-all'
-            )}
-          />
-        );
+    code: ({
+      'data-code-block': codeBlock,
+      ...props
+    }: ComponentProps<'code'> & CodeBlockMarkerProps) => {
+      if (codeBlock !== undefined) {
+        return <code {...props} />;
       }
 
-      return <CodeBlock language={language}>{children}</CodeBlock>;
+      return (
+        <code
+          {...props}
+          className={cn(
+            props.className,
+            'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold break-all'
+          )}
+        />
+      );
     },
-    pre: (props) => <pre {...props} className={cn(props.className, 'my-1')} />,
+    pre: ({
+      'data-raw': raw,
+      ...props
+    }: ComponentProps<'pre'> & CodeBlockMarkerProps) => {
+      if (raw === undefined) {
+        return <pre {...props} className={cn(props.className, 'my-1')} />;
+      }
+
+      return (
+        <pre className="my-1">
+          <CodeBlock {...props} raw={raw} />
+        </pre>
+      );
+    },
     a: (props) => (
       <a
         {...props}
