@@ -1,10 +1,27 @@
 import { Link } from '@tanstack/react-router';
+import type { AnimationEvent, SyntheticEvent } from 'react';
 
 import { ABSOLUTE_ROUTES } from '@/core/constants/routes';
 import { WaleedIcon } from '@/core/icons/waleed-icon';
 
 import { NavbarTabs } from './tabs';
 import { ThemeSwitchButton } from './theme-switch-button';
+
+// Starts the logo pulse (see .waleed-icon-dot in globals.css). A pulse that
+// is already playing is left to finish.
+const startLogoPulse = (event: SyntheticEvent<HTMLElement>) => {
+  event.currentTarget.dataset.pulse = '';
+};
+
+const endLogoPulse = (event: AnimationEvent<HTMLElement>) => {
+  if (
+    event.animationName === 'logo-pulse' &&
+    event.target instanceof Element &&
+    event.target.hasAttribute('data-last-dot')
+  ) {
+    delete event.currentTarget.dataset.pulse;
+  }
+};
 
 export const Navbar = () => {
   return (
@@ -15,6 +32,9 @@ export const Navbar = () => {
       <Link
         to={ABSOLUTE_ROUTES.ROOT}
         aria-label="Go to home"
+        onPointerEnter={startLogoPulse}
+        onFocus={startLogoPulse}
+        onAnimationEnd={endLogoPulse}
         className="focus-visible:ring-ring flex size-11 items-center justify-center rounded-md focus-visible:ring-2 focus-visible:outline-none"
       >
         <WaleedIcon className="size-6" />

@@ -210,6 +210,29 @@
   }
 }
 
+/*
+ * Navbar logo pulse: each dot of the W swells in writing order. The navbar
+ * sets data-pulse on the logo link on hover or focus and removes it when the
+ * last dot finishes, so a pulse always plays to the end.
+ */
+.waleed-icon-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-pulse] .waleed-icon-dot {
+    animation: logo-pulse 350ms ease-in-out both;
+    animation-delay: calc(var(--dot-index) * 40ms);
+  }
+}
+
+@keyframes logo-pulse {
+  50% {
+    transform: scale(1.45);
+  }
+}
+
 @keyframes page-out {
   to {
     opacity: 0;
