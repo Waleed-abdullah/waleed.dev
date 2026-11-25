@@ -5,7 +5,7 @@ import { fbm3 } from './noise';
 // Site background: a dot grid whose dots slowly swell and shrink with
 // drifting noise, like weather moving over a map. Drawn on a fixed canvas
 // behind every page (styles in globals.css under .terrain-background). With
-// reduced motion and on touch screens it draws one still frame.
+// reduced motion it draws one still frame.
 
 const SPACING = 16;
 const SCALE = 1 / 170;
@@ -54,11 +54,7 @@ export const TerrainBackground = () => {
     const context = canvas?.getContext('2d');
     if (!canvas || !context) return;
 
-    // One still frame with reduced motion, and on touch screens to save
-    // battery
-    const still =
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-      window.matchMedia('(hover: none)').matches;
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const start = performance.now() - START_SECONDS * 1000;
     const seconds = () =>
       still ? START_SECONDS : (performance.now() - start) / 1000;

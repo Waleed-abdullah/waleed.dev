@@ -66,7 +66,7 @@ Build plugins live in `plugins/` and are wired up in `vite.config.mts`.
 - **Animations:** Motion (Framer Motion) library, wrapped in `MotionConfig reducedMotion="user"`
 - **Head tags and share images:** the root route's `head()` (`modules/root-layout/head`) gets the current path and sets the canonical URL, `og:url` and the page's share image. `plugins/og-images.mts` generates the 1200x630 share images (home, list pages, one per post) into `public/og/` when the dev server or a build starts; that folder is git-ignored. `ThemeColorMeta` keeps `<meta name="theme-color">` on the current theme's background.
 - **Feeds:** `/sitemap.xml` and `/rss.xml` are server routes that are prerendered (listed in `pages` in `vite.config.mts`). `public/robots.txt` points crawlers at the sitemap.
-- **Background:** `modules/root-layout/terrain-background` draws a dot grid whose dots swell and shrink with drifting 3D value noise, on a fixed canvas behind every page (about 20fps; one still frame under `prefers-reduced-motion` and on touch screens). Its color and strength come from `.terrain-background` in `globals.css`.
+- **Background:** `modules/root-layout/terrain-background` draws a dot grid whose dots swell and shrink with drifting 3D value noise, on a fixed canvas behind every page (about 20fps, one still frame under `prefers-reduced-motion`). Its color and strength come from `.terrain-background` in `globals.css`.
 
 ## Code Conventions
 
