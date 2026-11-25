@@ -265,6 +265,36 @@
 }
 
 /*
+ * Theme switch: the toggle runs the change in a view transition
+ * (core/utils/theme-transition) and sets data-theme-transition while it
+ * runs. The whole page, navbar and footer included, is one snapshot: the old
+ * theme blurs away while the new one fades in.
+ */
+html[data-theme-transition] * {
+  view-transition-name: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html[data-theme-transition]::view-transition-old(root) {
+    animation: theme-blur-out 500ms ease both;
+  }
+
+  html[data-theme-transition]::view-transition-new(root) {
+    animation: theme-fade-in 500ms ease both;
+  }
+
+  /*
+   * Page load: the page fades in once on its first paint. <body> is rendered
+   * once and kept across client navigations, so this does not replay when
+   * moving between pages. It only fills backwards, so nothing is left on the
+   * body afterwards.
+   */
+  body {
+    animation: page-load-fade 550ms ease-out backwards;
+  }
+}
+
+/*
  * Navbar logo pulse: each dot of the W swells in writing order. The navbar
  * sets data-pulse on the logo link on hover or focus and removes it when the
  * last dot finishes, so a pulse always plays to the end.
@@ -284,6 +314,25 @@
 @keyframes logo-pulse {
   50% {
     transform: scale(1.45);
+  }
+}
+
+@keyframes theme-blur-out {
+  to {
+    opacity: 0;
+    filter: blur(10px);
+  }
+}
+
+@keyframes theme-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes page-load-fade {
+  from {
+    opacity: 0;
   }
 }
 
