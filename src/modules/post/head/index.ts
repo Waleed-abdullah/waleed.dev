@@ -29,4 +29,9 @@ export const getPostHeadMeta = (
   { name: 'category', content: metadata.category ?? defaultCategory },
   { property: 'og:title', content: metadata.title },
   { property: 'og:description', content: metadata.summary },
+  { name: 'twitter:title', content: metadata.title },
+  { name: 'twitter:description', content: metadata.summary },
+  { property: 'og:type', content: 'article' },
+  { property: 'og:image:alt', content: metadata.title },
+  { name: 'twitter:image:alt', content: metadata.title },
 ];

@@ -4,7 +4,8 @@ import { type PropsWithChildren } from '@/core/types/common';
 
 export const ThemeProvider = ({ children }: PropsWithChildren) => {
   return (
-    <NextThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    // Dark until the visitor picks a theme with the toggle
+    <NextThemeProvider attribute="class" defaultTheme="dark" enableSystem>
       {children}
     </NextThemeProvider>
   );

@@ -10,6 +10,7 @@ import viteReact from '@vitejs/plugin-react';
 import { nitro } from 'nitro/vite';
 import { defineConfig } from 'vite';
 
+import { ogImages } from './plugins/og-images.mts';
 import { postMetadata } from './plugins/post-metadata.mts';
 import { remarkHeadingIds } from './plugins/remark-heading-ids.mts';
 import { remarkMdxRsListSpread } from './plugins/remark-mdx-rs-list-spread.mts';
@@ -73,6 +74,7 @@ export default defineConfig({
     ],
   },
   plugins: [
+    ogImages(),
     postMetadata(),
     {
       enforce: 'pre',
@@ -96,6 +98,10 @@ export default defineConfig({
         {
           path: '/sitemap.xml',
           prerender: { enabled: true, outputPath: '/sitemap.xml' },
+        },
+        {
+          path: '/rss.xml',
+          prerender: { enabled: true, outputPath: '/rss.xml' },
         },
       ],
     }),

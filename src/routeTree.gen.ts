@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WithNavbarRouteImport } from './routes/_with-navbar'
+import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as WithNavbarIndexRouteImport } from './routes/_with-navbar/index'
 import { Route as WithNavbarPlaygroundRouteImport } from './routes/_with-navbar/playground'
@@ -20,6 +21,11 @@ import { Route as WithNavbarRecipesSlugRouteImport } from './routes/_with-navbar
 
 const WithNavbarRoute = WithNavbarRouteImport.update({
   id: '/_with-navbar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RssDotxmlRoute = RssDotxmlRouteImport.update({
+  id: '/rss.xml',
+  path: '/rss.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -60,6 +66,7 @@ const WithNavbarRecipesSlugRoute = WithNavbarRecipesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof WithNavbarIndexRoute
+  '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/playground': typeof WithNavbarPlaygroundRoute
   '/blogs/$slug': typeof WithNavbarBlogsSlugRoute
@@ -68,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/recipes/': typeof WithNavbarRecipesIndexRoute
 }
 export interface FileRoutesByTo {
+  '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/playground': typeof WithNavbarPlaygroundRoute
   '/': typeof WithNavbarIndexRoute
@@ -79,6 +87,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_with-navbar': typeof WithNavbarRouteWithChildren
+  '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_with-navbar/playground': typeof WithNavbarPlaygroundRoute
   '/_with-navbar/': typeof WithNavbarIndexRoute
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/rss.xml'
     | '/sitemap.xml'
     | '/playground'
     | '/blogs/$slug'
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/recipes/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/rss.xml'
     | '/sitemap.xml'
     | '/playground'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_with-navbar'
+    | '/rss.xml'
     | '/sitemap.xml'
     | '/_with-navbar/playground'
     | '/_with-navbar/'
@@ -120,6 +132,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   WithNavbarRoute: typeof WithNavbarRouteWithChildren
+  RssDotxmlRoute: typeof RssDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -130,6 +143,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof WithNavbarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rss.xml': {
+      id: '/rss.xml'
+      path: '/rss.xml'
+      fullPath: '/rss.xml'
+      preLoaderRoute: typeof RssDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -208,6 +228,7 @@ const WithNavbarRouteWithChildren = WithNavbarRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   WithNavbarRoute: WithNavbarRouteWithChildren,
+  RssDotxmlRoute: RssDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
