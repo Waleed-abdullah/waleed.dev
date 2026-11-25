@@ -6,13 +6,10 @@ import { cn } from '@/core/lib/cn';
 import { type PropsWithChildren } from '@/core/types/common';
 
 import { SectionHeading } from '../section-heading';
-import { LBS_TO_KG, LIFTS, type Unit, UNITS } from './constants';
+import { LIFTS, LIFTS_TOTAL_KG } from './constants';
 
 const INLINE_LINK_CLASS_NAME =
   'decoration-muted-foreground hover:decoration-foreground focus-visible:ring-ring rounded-sm underline underline-offset-4 transition-colors focus-visible:ring-2 focus-visible:outline-none';
-
-const formatWeight = (lbs: number, unit: Unit) =>
-  unit === 'lbs' ? lbs : Math.round(lbs * LBS_TO_KG);
 
 /**
  * static: the real numbers, as server-rendered (the section was on screen on
@@ -43,7 +40,6 @@ const Row = ({ label, isLast, children }: PropsWithChildren<RowProps>) => (
 );
 
 export const OutsideWork = () => {
-  const [unit, setUnit] = useState<Unit>('lbs');
   const [phase, setPhase] = useState<RollPhase>('static');
   const sectionRef = useRef<HTMLElement | null>(null);
 
@@ -89,45 +85,56 @@ export const OutsideWork = () => {
       <SectionHeading id="outside-work" title="Outside work" />
       <dl className="flex flex-col">
         <Row label="Training">
-          <span className="flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-4 sm:gap-y-2">
-            <span className="flex flex-wrap gap-x-5 gap-y-1 tabular-nums">
-              {LIFTS.map((lift) => (
-                <span key={lift.name}>
-                  {lift.name}{' '}
-                  <strong className="font-semibold">
+          {/* Each lift as a small stat: mono label above the number in kg.
+              The total is the sum lifters usually quote. */}
+          <ul className="flex justify-between gap-x-3 tabular-nums sm:grid sm:grid-cols-4 sm:gap-x-6">
+            {[
+              ...LIFTS.map((lift) => ({
+                key: lift.name,
+                label: lift.label,
+                spoken: lift.name,
+                kg: lift.kg,
+              })),
+              {
+                key: 'total',
+                label: 'Total',
+                spoken: 'Total',
+                kg: LIFTS_TOTAL_KG,
+              },
+            ].map((stat) => (
+              <li
+                key={stat.key}
+                className={cn(
+                  'flex flex-col gap-0.5',
+                  stat.key === 'total' && 'border-border border-l pl-3 sm:pl-6'
+                )}
+              >
+                <span
+                  aria-hidden="true"
+                  className="text-muted-foreground font-mono text-[11px] tracking-wide uppercase"
+                >
+                  {stat.label}
+                </span>
+                <span className="sr-only">{stat.spoken}</span>
+                <span className="flex items-baseline gap-1">
+                  <strong className="text-lg leading-tight font-semibold sm:text-xl">
                     <RollingNumber
-                      value={formatWeight(lift.lbs, unit)}
+                      value={stat.kg}
                       isZeroed={phase === 'waiting'}
                       isInstant={phase === 'waiting'}
                     />
                   </strong>
-                  <span className="sr-only"> {unit}</span>
+                  <span
+                    aria-hidden="true"
+                    className="text-muted-foreground font-mono text-xs"
+                  >
+                    kg
+                  </span>
+                  <span className="sr-only">kilograms</span>
                 </span>
-              ))}
-            </span>
-            <span
-              role="group"
-              aria-label="Units"
-              className="border-border flex gap-0.5 rounded-lg border p-0.5"
-            >
-              {UNITS.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  aria-pressed={unit === option}
-                  onClick={() => setUnit(option)}
-                  className={cn(
-                    'focus-visible:ring-ring inline-flex h-10 min-w-12 cursor-pointer items-center justify-center rounded-md px-2.5 font-mono text-xs font-medium transition-colors focus-visible:ring-2 focus-visible:outline-none sm:h-7 sm:min-w-10',
-                    unit === option
-                      ? 'bg-muted text-foreground'
-                      : 'text-muted-foreground hover:text-foreground'
-                  )}
-                >
-                  {option}
-                </button>
-              ))}
-            </span>
-          </span>
+              </li>
+            ))}
+          </ul>
         </Row>
         <Row label="Reading">
           <a
