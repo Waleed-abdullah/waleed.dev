@@ -83,7 +83,8 @@ export const Footer = () => {
         ))}
       </div>
 
-      <Clock size={24} />
+      {/* Waleed's local time */}
+      <Clock size={24} timeZone="Asia/Karachi" place="Islamabad" />
     </footer>
   );
 };

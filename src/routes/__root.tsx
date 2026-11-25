@@ -5,10 +5,11 @@ import { createRootRoute } from '@tanstack/react-router';
 
 import { NotFoundPage } from '@/modules/not-found-page';
 import { RootLayout } from '@/modules/root-layout';
-import { ROOT_HEAD } from '@/modules/root-layout/head';
+import { getRootHead } from '@/modules/root-layout/head';
 
 export const Route = createRootRoute({
-  head: () => ROOT_HEAD,
+  // The deepest match is the page being rendered
+  head: ({ matches }) => getRootHead(matches.at(-1)?.pathname ?? '/'),
   shellComponent: RootLayout,
   notFoundComponent: NotFoundPage,
 });

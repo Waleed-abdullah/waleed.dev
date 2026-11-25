@@ -4,6 +4,7 @@ import { type PropsWithChildren } from '@/core/types/common';
 
 import { RootLayoutProviders } from './providers';
 import { Scripts as RootScripts } from './Scripts';
+import { TerrainBackground } from './terrain-background';
 
 export const RootLayout = ({ children }: PropsWithChildren) => {
   return (
@@ -14,6 +15,7 @@ export const RootLayout = ({ children }: PropsWithChildren) => {
         <RootScripts />
       </head>
       <body className="flex h-svh w-full font-sans antialiased">
+        <TerrainBackground />
         <RootLayoutProviders>{children}</RootLayoutProviders>
         <Scripts />
       </body>
