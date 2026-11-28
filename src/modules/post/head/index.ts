@@ -22,7 +22,7 @@ export const getPostHeadMeta = (
     content: [
       keyword,
       'waleed',
-      'waleed.dev',
+      'walead.dev',
       ...(metadata.keywords || []),
     ].join(','),
   },

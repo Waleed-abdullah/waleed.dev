@@ -16,7 +16,7 @@ No test framework is configured. Pre-commit hook runs `pnpm lint`; commit-msg ho
 
 ## Architecture
 
-This is a **TanStack Start** portfolio/blog site (waleed.dev) built with Vite, TanStack Router (file-based routes), React 19, TypeScript, Tailwind CSS 4 and MDX for content. Nitro produces the server output; on Vercel it emits the Vercel Build Output (`.vercel/output`) automatically.
+This is a **TanStack Start** portfolio/blog site (walead.dev) built with Vite, TanStack Router (file-based routes), React 19, TypeScript, Tailwind CSS 4 and MDX for content. Nitro produces the server output; on Vercel it emits the Vercel Build Output (`.vercel/output`) automatically.
 
 ### Source Layout (`src/`)
 

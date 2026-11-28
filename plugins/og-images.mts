@@ -196,7 +196,7 @@ const card = ({ label, title, details, seed }: CardOptions) =>
             },
             [
               el('div', { display: 'flex' }, `* ${label}`),
-              el('div', { display: 'flex' }, 'waleed.dev'),
+              el('div', { display: 'flex' }, 'walead.dev'),
             ]
           ),
           el('div', { display: 'flex', flexDirection: 'column', gap: 24 }, [

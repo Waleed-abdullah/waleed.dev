@@ -1,4 +1,4 @@
-# waleed.dev
+# walead.dev
 
 Personal site and blog, built with [TanStack Start](https://tanstack.com/start) (Vite, TanStack Router), React 19, Tailwind CSS 4 and MDX.
 

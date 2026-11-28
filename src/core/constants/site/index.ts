@@ -1,1 +1,1 @@
-export const SITE_URL = 'https://waleed.dev';
+export const SITE_URL = 'https://walead.dev';

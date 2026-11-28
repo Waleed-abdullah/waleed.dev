@@ -52,7 +52,7 @@ export const getRootHead = (pathname: string) => {
       { name: 'author', content: 'Waleed' },
       { name: 'robots', content: 'index, follow' },
       { name: 'theme-color', content: THEME_COLORS.dark },
-      { property: 'og:site_name', content: 'waleed.dev' },
+      { property: 'og:site_name', content: 'walead.dev' },
       { property: 'og:url', content: url },
       { property: 'og:title', content: SOCIAL_TITLE },
       { property: 'og:description', content: DESCRIPTION },
