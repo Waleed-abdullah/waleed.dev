@@ -61,6 +61,7 @@ export const TerrainBackground = () => {
 
     let width = 0;
     let height = 0;
+    let ratio = 0;
 
     // Dot color and strength come from CSS (`color` and --terrain-alpha)
     const readTheme = () => {
@@ -70,22 +71,32 @@ export const TerrainBackground = () => {
         Number.parseFloat(style.getPropertyValue('--terrain-alpha')) || 0.15;
     };
 
-    // Resizing the canvas resets the context, so the theme is read again
+    // Resizing the canvas resets the context, so the theme is read again.
+    // Returns false when the size did not change (phones fire resize events
+    // as their toolbars move while scrolling).
     const resize = () => {
+      const nextRatio = window.devicePixelRatio || 1;
+      if (
+        canvas.clientWidth === width &&
+        canvas.clientHeight === height &&
+        nextRatio === ratio
+      ) {
+        return false;
+      }
       width = canvas.clientWidth;
       height = canvas.clientHeight;
-      const ratio = window.devicePixelRatio || 1;
+      ratio = nextRatio;
       canvas.width = Math.round(width * ratio);
       canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
       readTheme();
+      return true;
     };
 
     const draw = () => drawTerrain(context, width, height, seconds());
 
     const onResize = () => {
-      resize();
-      draw();
+      if (resize()) draw();
     };
 
     // next-themes switches the theme by changing the class on <html>
